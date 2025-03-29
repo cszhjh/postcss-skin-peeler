@@ -1,0 +1,18 @@
+{
+  "name": "postcss-skin-peeler",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "format": "prettier --write .",
+    "lint": "eslint --fix .",
+    "release": "pnpm --dir packages/core release"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@configurajs/eslint": "^0.1.2",
+    "@configurajs/prettier": "^0.1.4"
+  }
+}
