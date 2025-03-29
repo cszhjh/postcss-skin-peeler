@@ -1,12 +1,11 @@
 import type { ChildNode, Rule, Declaration } from 'postcss'
 import type { PluginOptions } from './types'
 
-
-const declarationKeys = ['background', 'background-image']
 const htmlBodyRegex = /^(body|html(\s+body)?)\b/;
 const backgroundImageRegex = /url\((['"]?)(?!https?:\/\/)([^'"\)]+)\1\)/;
 
-// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
+export const declarationKeys = ['background', 'background-image']
+
 export function isFunction(val: unknown): val is Function {
   return typeof val === 'function'
 }
@@ -18,7 +17,6 @@ export function isRule(node: Declaration['parent']): node is Rule {
 export function isDeclaration(node: ChildNode): node is Declaration {
   return node.type === 'decl'
 }
-
 
 export function getBackgroundUrlValue(decl: Declaration): string {
   if (decl.type !== 'decl' || !declarationKeys.includes(decl.prop)) {

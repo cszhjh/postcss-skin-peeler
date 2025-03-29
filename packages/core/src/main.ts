@@ -4,7 +4,7 @@ import { type PluginOptions, type TransformOptions } from './types';
 
 import { existsSync } from 'node:fs'
 import { dirname, resolve, relative, join } from 'node:path';
-import { isRule, normalizePrefixSelector, getBackgroundUrlValue, } from './utils'
+import { declarationKeys, isRule, normalizePrefixSelector, getBackgroundUrlValue } from './utils'
 
 const ruleCache = new Map<string, Rule>();
 
@@ -14,7 +14,6 @@ async function transform(decl: Declaration, options: TransformOptions) {
   if (!isRule(rule)) {
     return;
   }
-
 
   const { source, selector } = rule;
   const { imgSrc, skinSrc, prefixSelector } = options;
@@ -36,18 +35,19 @@ async function transform(decl: Declaration, options: TransformOptions) {
   }
 
   const skinSelector = prefixSelector(selector)
-
   const cacheSkinRule = ruleCache.get(skinSelector)
+
+
   if (cacheSkinRule) {
     cacheSkinRule.walkDecls('background-image', (decl) => {
-      decl.value = `url(${skinRelativeFilePath})`
+      decl.value = `url("${skinRelativeFilePath}")`
     })
     return cacheSkinRule
   }
 
   const skinDecl = new Declaration({
     prop: 'background-image',
-    value: `url(${skinRelativeFilePath})`,
+    value: `url("${skinRelativeFilePath}")`,
   });
 
   const skinRule =  rule.cloneAfter({
@@ -60,26 +60,23 @@ async function transform(decl: Declaration, options: TransformOptions) {
 }
 
 export const creator: PluginCreator<PluginOptions> = ({
-  imgSrc = '/src/images',
-  skinSrc = '/src/skin',
+  imgSrc = resolve(__dirname, './src/images'),
+  skinSrc = resolve(__dirname, './src/skin'),
   prefixSelector = '.skin-peeler',
 }: PluginOptions = {}): Plugin => {
   const options = {
-    imgSrc: resolve(imgSrc),
-    skinSrc: resolve(skinSrc),
+    imgSrc,
+    skinSrc,
     prefixSelector: normalizePrefixSelector(prefixSelector)
   }
 
   return {
     postcssPlugin: 'postcss-skin-peeler',
     Declaration: {
-      'background': async (decl) => {
-        await transform(decl, options)
-      },
-      'background-image': async (decl) => {
-        await transform(decl, options)
-      },
-    }
+      ...Object.fromEntries(
+        declarationKeys.map((prop) => [prop, async (decl) => { await transform(decl, options) }])
+      )
+    },
   }
 };
 
