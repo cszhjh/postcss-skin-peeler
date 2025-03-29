@@ -1,6 +1,6 @@
 {
   "name": "postcss-skin-peeler",
-  "version": "1.0.5",
+  "version": "0.0.1",
   "private": false,
   "description": "A PostCSS plugin that automatically generates prefixed theme styles for dynamic skin switching",
   "keywords": [
