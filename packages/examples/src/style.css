@@ -1,0 +1,67 @@
+html {
+  color-scheme: light dark;
+  font-family: system-ui;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.test-non-quotes {
+  width: 1200px;
+  height: 1185px;
+  background: url(./images/bg.png) center / cover no-repeat;
+}
+
+.test-single-quotes {
+  background: url('./images/bg.png') center / cover no-repeat;
+}
+
+.test-double-quotes {
+  background: url("./images/bg.png") center / cover no-repeat;
+}
+
+.test-http {
+  background: url(http://varletjs.org/varlet_icon.png);
+}
+
+.test-https {
+  background: url(https://varletjs.org/varlet_icon.png);
+}
+
+.test-bg-img {
+  background-image: url("./images/bg.png");
+}
+
+/* test repeat decl one */
+.test-repeat-decl-one {
+  background: url('./images/bg.png') center / cover no-repeat;
+  background-image: url('./images/section/css.png');
+}
+
+/* test repeat decl two */
+.test-repeat-decl-two {
+  background: url('./images/bg.png') center / cover no-repeat;
+}
+
+.test-repeat-decl-two {
+  background-image: url('./images/varlet/icon.png');
+}
+
+body .test-body {
+  background: url(./images/section/css.png);
+}
+
+html .test-html {
+  background: url(./images/section/css.png);
+}
+
+html body .test-html-body {
+  background: url(./images/section/css.png);
+}
+
+@media screen and (max-width: 500px) {
+  .test-media {
+    background: url(./images/section/css.png);
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "name": "parcel-vanilla-starter",
+  "private": true,
+  "version": "0.0.0",
+  "source": "src/index.html",
+  "scripts": {
+    "dev": "parcel",
+    "build": "parcel build"
+  },
+  "devDependencies": {
+    "@parcel/config-default": "^2.14.3",
+    "autoprefixer": "^10.4.21",
+    "parcel": "^2.14.0",
+    "postcss": "^8.2.1",
+    "postcss-import": "^16.1.0",
+    "postcss-skin-peeler": "workspace:*"
+  }
+}

@@ -1,0 +1,106 @@
+html {
+  color-scheme: light dark;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  font-family: system-ui;
+  display: flex
+}
+
+.test-non-quotes {
+  background: url(bg.9c3c31a1.png) 50%/cover no-repeat;
+  width: 1200px;
+  height: 1185px
+}
+
+.skin .test-non-quotes {
+  background-image: url(bg.9c3c31a1.png)
+}
+
+.test-single-quotes {
+  background: url(bg.9c3c31a1.png) 50%/cover no-repeat
+}
+
+.skin .test-single-quotes {
+  background-image: url(bg.9c3c31a1.png)
+}
+
+.test-double-quotes {
+  background: url(bg.9c3c31a1.png) 50%/cover no-repeat
+}
+
+.skin .test-double-quotes {
+  background-image: url(bg.9c3c31a1.png)
+}
+
+.test-http {
+  background: url(http://varletjs.org/varlet_icon.png)
+}
+
+.test-https {
+  background: url(https://varletjs.org/varlet_icon.png)
+}
+
+.test-bg-img {
+  background-image: url(bg.9c3c31a1.png)
+}
+
+.skin .test-bg-img {
+  background-image: url(bg.9c3c31a1.png)
+}
+
+.test-repeat-decl-one {
+  background: url(css.4b113d31.png) 50%/cover no-repeat
+}
+
+.skin .test-repeat-decl-one {
+  background-image: url(css.4b113d31.png)
+}
+
+.test-repeat-decl-two {
+  background: url(bg.9c3c31a1.png) 50%/cover no-repeat
+}
+
+.skin .test-repeat-decl-two {
+  background-image: url(icon.60876db3.png)
+}
+
+.test-repeat-decl-two {
+  background-image: url(icon.60876db3.png)
+}
+
+body .test-body {
+  background: url(css.4b113d31.png)
+}
+
+body .skin .test-body {
+  background-image: url(css.4b113d31.png)
+}
+
+html .test-html {
+  background: url(css.4b113d31.png)
+}
+
+html .skin .test-html {
+  background-image: url(css.4b113d31.png)
+}
+
+html body .test-html-body {
+  background: url(css.4b113d31.png)
+}
+
+html body .skin .test-html-body {
+  background-image: url(css.4b113d31.png)
+}
+
+@media screen and (width<=500px) {
+  .test-media {
+    background: url(css.4b113d31.png)
+  }
+
+  .skin .test-media {
+    background-image: url(css.4b113d31.png)
+  }
+}
+
+/*# sourceMappingURL=examples.66b6277e.css.map */
