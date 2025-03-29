@@ -2,15 +2,27 @@
   "name": "postcss-skin-peeler",
   "version": "0.0.1",
   "private": false,
-  "description": "A PostCSS plugin that automatically generates prefixed theme styles for dynamic skin switching",
+  "description": "A PostCSS plugin that automatically generates prefixed theme styles for dynamic skin switching.",
   "keywords": [
     "postcss",
     "postcss-skin-peeler",
     "skin",
     "skin-peeler"
   ],
+  "homepage": "https://github.com/cszhjh/postcss-skin-peeler",
+  "bugs": {
+    "url": "https://github.com/cszhjh/postcss-skin-peeler/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cszhjh/postcss-skin-peeler.git"
+  },
   "license": "MIT",
-  "author": "cszhjh",
+  "author": {
+    "name": "cszhjh",
+    "email": "cszhjh@gmail.com"
+  },
+  "publisher": "cszhjh",
   "type": "module",
   "exports": {
     ".": {
@@ -27,13 +39,18 @@
   ],
   "scripts": {
     "build": "tsup",
-    "release": "pnpm build && vr release"
+    "dev": "tsup --watch",
+    "release": "pnpm build && vr release",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "devDependencies": {
+    "@types/mock-fs": "^4.13.4",
     "@types/node": "^22.13.14",
     "@varlet/release": "^0.3.3",
+    "mock-fs": "^5.5.0",
     "postcss": "^8.5.3",
-    "postcss-value-parser": "^4.2.0",
-    "tsup": "^8.4.0"
+    "tsup": "^8.4.0",
+    "vitest": "^3.0.9"
   }
 }
