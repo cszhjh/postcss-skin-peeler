@@ -1,8 +1,8 @@
-import type { ChildNode, Rule, Declaration } from 'postcss'
+import type { ChildNode, Declaration, Rule } from 'postcss'
 import type { PluginOptions } from './types'
 
-const htmlBodyRegex = /^(body|html(\s+body)?)\b/;
-const backgroundImageRegex = /url\((['"]?)(?!https?:\/\/)([^'"\)]+)\1\)/;
+const htmlBodyRegex = /^(body|html(\s+body)?)\b/
+const backgroundImageRegex = /url\((['"]?)(?!https?:\/\/)([^'"\)]+)\1\)/
 
 export const declarationKeys = ['background', 'background-image']
 
@@ -11,7 +11,7 @@ export function isFunction(val: unknown): val is Function {
 }
 
 export function isRule(node: Declaration['parent']): node is Rule {
-  return node !== undefined && node.type === 'rule';
+  return node !== undefined && node.type === 'rule'
 }
 
 export function isDeclaration(node: ChildNode): node is Declaration {
@@ -27,7 +27,7 @@ export function getBackgroundUrlValue(decl: Declaration): string {
 
 export function normalizePrefixSelector(prefixSelector: PluginOptions['prefixSelector']) {
   if (isFunction(prefixSelector)) {
-    return prefixSelector;
+    return prefixSelector
   }
 
   return (selector: string): string => {
@@ -36,5 +36,5 @@ export function normalizePrefixSelector(prefixSelector: PluginOptions['prefixSel
     }
 
     return selector.replace(htmlBodyRegex, (match) => `${match} ${prefixSelector}`)
-  };
-};
+  }
+}

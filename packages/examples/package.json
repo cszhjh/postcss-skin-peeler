@@ -1,11 +1,11 @@
 {
   "name": "parcel-vanilla-starter",
-  "private": true,
   "version": "0.0.0",
+  "private": true,
   "source": "src/index.html",
   "scripts": {
-    "dev": "parcel",
-    "build": "rimraf dist && parcel build"
+    "build": "rimraf dist && parcel build",
+    "dev": "parcel"
   },
   "devDependencies": {
     "@parcel/config-default": "^2.14.3",
