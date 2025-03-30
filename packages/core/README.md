@@ -41,7 +41,7 @@ module.exports = {
 | --------- | -------- | ------- | ----------------------------------------------------------------                |
 | imgSrc    | `string`   |    `resolve(__dirname, './src/images')`     | The path to the image directory.                                                 |
 | skinDir   | `string`   |     `resolve(__dirname, './src/skin')`    | The directory where skin images are located.                                     |
-| prefixSelector    | `string \| ((selector: string) => string)`   |     `'.skin-peeler'`    | The prefix to be added to the generated CSS rules.                               |
+| prefixSelector    | `string \| ((selector: string) => string)`   |     `.skin-peeler`    | The prefix to be added to the generated CSS rules.                               |
 
 ## Example
 
