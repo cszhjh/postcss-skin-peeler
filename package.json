@@ -3,7 +3,8 @@
   "scripts": {
     "format": "prettier --write .",
     "lint": "eslint --fix .",
-    "release": "pnpm --dir packages/core release"
+    "release": "pnpm --dir packages/core release",
+    "test": "pnpm --dir packages/core test"
   },
   "devDependencies": {
     "@configurajs/eslint": "^0.1.2",

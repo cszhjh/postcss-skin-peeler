@@ -6,7 +6,7 @@ import { declarationKeys, getBackgroundUrlValue, isRule, normalizePrefixSelector
 
 const ruleCache = new Map<string, Rule>()
 
-async function transform(decl: Declaration, options: TransformOptions) {
+function transform(decl: Declaration, options: TransformOptions) {
   const rule = decl.parent
 
   if (!isRule(rule)) {
@@ -73,8 +73,8 @@ export const creator: PluginCreator<PluginOptions> = ({
       ...Object.fromEntries(
         declarationKeys.map((prop) => [
           prop,
-          async (decl) => {
-            await transform(decl, options)
+          (decl) => {
+            transform(decl, options)
           },
         ]),
       ),
