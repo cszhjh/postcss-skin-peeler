@@ -41,7 +41,7 @@ module.exports = {
 | ---------------- | -------- | --------------------------- | -------------------------------------------------------------------- |
 | imgSrc           | `string` | `resolve(__dirname, './src/images')` | 图片目录的路径。                                                     |
 | skinSrc          | `string` | `resolve(__dirname, './src/skin')`    | 皮肤图片所在的目录。                                                 |
-| prefixSelector   | `string | ((selector: string) => string)` | `.skin-peeler` | 生成的CSS规则的前缀。                                             |
+| prefixSelector   | `string \| ((selector: string) => string)` | `.skin-peeler` | 生成的CSS规则的前缀。                                             |
 
 ## 示例
 
