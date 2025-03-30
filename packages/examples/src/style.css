@@ -18,7 +18,7 @@ html {
 }
 
 .test-double-quotes {
-  background: url("./images/bg.png") center / cover no-repeat;
+  background: url('./images/bg.png') center / cover no-repeat;
 }
 
 .test-http {
@@ -30,7 +30,7 @@ html {
 }
 
 .test-bg-img {
-  background-image: url("./images/bg.png");
+  background-image: url('./images/bg.png');
 }
 
 /* test repeat decl one */

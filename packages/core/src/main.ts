@@ -1,42 +1,39 @@
-
-import { type PluginCreator, type Plugin, type Rule, Declaration } from 'postcss';
-import { type PluginOptions, type TransformOptions } from './types';
-
 import { existsSync } from 'node:fs'
-import { dirname, resolve, relative, join } from 'node:path';
-import { declarationKeys, isRule, normalizePrefixSelector, getBackgroundUrlValue } from './utils'
+import { dirname, join, relative, resolve } from 'node:path'
+import { Declaration, type Plugin, type PluginCreator, type Rule } from 'postcss'
+import { type PluginOptions, type TransformOptions } from './types'
+import { declarationKeys, getBackgroundUrlValue, isRule, normalizePrefixSelector } from './utils'
 
-const ruleCache = new Map<string, Rule>();
+const ruleCache = new Map<string, Rule>()
 
 async function transform(decl: Declaration, options: TransformOptions) {
-  const rule = decl.parent;
+  const rule = decl.parent
 
   if (!isRule(rule)) {
-    return;
+    return
   }
 
-  const { source, selector } = rule;
-  const { imgSrc, skinSrc, prefixSelector } = options;
-  const styleFilePath = source?.input.file;
+  const { source, selector } = rule
+  const { imgSrc, skinSrc, prefixSelector } = options
+  const styleFilePath = source?.input.file
 
   if (!styleFilePath) {
-    return;
+    return
   }
 
-  const styleDirname = dirname(styleFilePath);
+  const styleDirname = dirname(styleFilePath)
   const originalUrl = getBackgroundUrlValue(decl)
-  const originalFilePath = resolve(styleDirname, originalUrl);
+  const originalFilePath = resolve(styleDirname, originalUrl)
   const suffixPath = relative(imgSrc, originalFilePath)
   const skinFilePath = join(skinSrc, suffixPath)
   const skinRelativeFilePath = relative(styleDirname, skinFilePath)
 
   if (!originalUrl || !originalFilePath.startsWith(imgSrc) || !existsSync(skinFilePath)) {
-    return;
+    return
   }
 
   const skinSelector = prefixSelector(selector)
   const cacheSkinRule = ruleCache.get(skinSelector)
-
 
   if (cacheSkinRule) {
     cacheSkinRule.walkDecls('background-image', (decl) => {
@@ -48,15 +45,15 @@ async function transform(decl: Declaration, options: TransformOptions) {
   const skinDecl = new Declaration({
     prop: 'background-image',
     value: `url("${skinRelativeFilePath}")`,
-  });
+  })
 
-  const skinRule =  rule.cloneAfter({
+  const skinRule = rule.cloneAfter({
     selector: skinSelector,
-    nodes: [skinDecl]
+    nodes: [skinDecl],
   })
 
   ruleCache.set(skinSelector, skinRule)
-  return skinRule;
+  return skinRule
 }
 
 export const creator: PluginCreator<PluginOptions> = ({
@@ -67,19 +64,24 @@ export const creator: PluginCreator<PluginOptions> = ({
   const options = {
     imgSrc,
     skinSrc,
-    prefixSelector: normalizePrefixSelector(prefixSelector)
+    prefixSelector: normalizePrefixSelector(prefixSelector),
   }
 
   return {
     postcssPlugin: 'postcss-skin-peeler',
     Declaration: {
       ...Object.fromEntries(
-        declarationKeys.map((prop) => [prop, async (decl) => { await transform(decl, options) }])
-      )
+        declarationKeys.map((prop) => [
+          prop,
+          async (decl) => {
+            await transform(decl, options)
+          },
+        ]),
+      ),
     },
   }
-};
+}
 
-creator.postcss = true;
+creator.postcss = true
 
-export default creator;
+export default creator
