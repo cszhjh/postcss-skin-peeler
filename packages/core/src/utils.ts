@@ -2,10 +2,11 @@ import type { ChildNode, Declaration, Rule } from 'postcss'
 import type { PluginOptions } from './types'
 
 const htmlBodyRegex = /^(body|html(\s+body)?)\b/
-const backgroundImageRegex = /url\((['"]?)(?!https?:\/\/)([^'"\)]+)\1\)/
+const backgroundImageRegex = /url\((['"]?)(?!https?:\/\/)([^'")]+)\1\)/
 
 export const declarationKeys = ['background', 'background-image']
 
+// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
 export function isFunction(val: unknown): val is Function {
   return typeof val === 'function'
 }
