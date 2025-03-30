@@ -14,12 +14,21 @@ importers:
       '@configurajs/prettier':
         specifier: ^0.1.4
         version: 0.1.4(prettier@3.5.3)
+      '@ianvs/prettier-plugin-sort-imports':
+        specifier: ^4.4.1
+        version: 4.4.1(prettier@3.5.3)
       eslint:
         specifier: 9.17.0
         version: 9.17.0
       prettier:
         specifier: ^3.2.5
         version: 3.5.3
+      prettier-plugin-packagejson:
+        specifier: ^2.5.10
+        version: 2.5.10(prettier@3.5.3)
+      prettier-plugin-tailwindcss:
+        specifier: ^0.6.11
+        version: 0.6.11(@ianvs/prettier-plugin-sort-imports@4.4.1(prettier@3.5.3))(prettier@3.5.3)
 
   packages/core:
     devDependencies:

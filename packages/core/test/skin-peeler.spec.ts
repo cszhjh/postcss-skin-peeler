@@ -1,10 +1,9 @@
-import type { PluginOptions } from '../src/types'
-
-import postcss from 'postcss'
+import { dirname, join, relative } from 'node:path'
 import mockFs from 'mock-fs'
-import { join, relative, dirname } from 'node:path'
+import postcss from 'postcss'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 import plugin from '../src/main'
+import type { PluginOptions } from '../src/types'
 
 const FROM = join(__dirname, './style/index.css')
 const IMG_SRC = join(__dirname, './images')
@@ -13,18 +12,18 @@ const ORIGIN_IMG_ONE = join(IMG_SRC, './one.png')
 const ORIGIN_IMG_TWO = join(IMG_SRC, './two.png')
 const SKIN_IMG_ONE = join(SKIN_IMG, './one.png')
 const SKIN_IMG_TWO = join(SKIN_IMG, './two.png')
-const ORIGIN_IMG_ONE_RELATIVE = relative(dirname(FROM), ORIGIN_IMG_ONE);
-const ORIGIN_IMG_TWO_RELATIVE = relative(dirname(FROM), ORIGIN_IMG_TWO);
+const ORIGIN_IMG_ONE_RELATIVE = relative(dirname(FROM), ORIGIN_IMG_ONE)
+const ORIGIN_IMG_TWO_RELATIVE = relative(dirname(FROM), ORIGIN_IMG_TWO)
 
 const PLUGIN_OPTIONS: PluginOptions = {
   imgSrc: IMG_SRC,
   skinSrc: SKIN_IMG,
-  prefixSelector: '.skin'
+  prefixSelector: '.skin',
 }
 
 async function run(css: string) {
   const { css: output } = await postcss([plugin(PLUGIN_OPTIONS)]).process(css, { from: FROM })
-  return output;
+  return output
 }
 
 beforeAll(() => {
@@ -166,5 +165,3 @@ describe('test rule in @media', () => {
     expect(output).toMatchSnapshot()
   })
 })
-
-
