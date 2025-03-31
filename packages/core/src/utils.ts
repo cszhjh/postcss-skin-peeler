@@ -1,7 +1,7 @@
 import type { ChildNode, Declaration, Rule } from 'postcss'
 import type { PluginOptions } from './types'
 
-const htmlBodyRegex = /^(body|html(\s+body)?)\b/
+const htmlBodyRegex = /^((?:body|html)(?:[.#[][\w-]+)*(?:\s+body(?:[.#[][\w-]+)*)?)(.*)$/
 const backgroundImageRegex = /url\((['"]?)(?!https?:\/\/)([^'")]+)\1\)/
 
 export const declarationKeys = ['background', 'background-image']
@@ -32,10 +32,17 @@ export function normalizePrefixSelector(prefixSelector: PluginOptions['prefixSel
   }
 
   return (selector: string): string => {
+    selector = selector.trim()
+    const selectors = selector.split(',')
+
+    if (selectors.length > 1) {
+      return selectors.map((selector) => normalizePrefixSelector(prefixSelector)(selector)).join(',')
+    }
+
     if (!htmlBodyRegex.test(selector)) {
       return `${prefixSelector} ${selector}`
     }
 
-    return selector.replace(htmlBodyRegex, (match) => `${match} ${prefixSelector}`)
+    return selector.replace(htmlBodyRegex, (_, prefix, rest) => `${prefix} ${prefixSelector}${rest}`)
   }
 }
