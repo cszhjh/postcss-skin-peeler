@@ -57,13 +57,13 @@ function transform(decl: Declaration, options: TransformOptions) {
 }
 
 export const creator: PluginCreator<PluginOptions> = ({
-  imgSrc = resolve(__dirname, './src/images'),
-  skinSrc = resolve(__dirname, './src/skin'),
+  imgSrc = './src/images',
+  skinSrc = './src/skin',
   prefixSelector = '.skin-peeler',
-}: PluginOptions = {}): Plugin => {
+} = {}): Plugin => {
   const options = {
-    imgSrc,
-    skinSrc,
+    imgSrc: resolve(imgSrc),
+    skinSrc: resolve(skinSrc),
     prefixSelector: normalizePrefixSelector(prefixSelector),
   }
 

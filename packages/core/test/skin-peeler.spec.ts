@@ -1,17 +1,17 @@
-import { dirname, join, relative } from 'node:path'
+import { dirname, relative, resolve } from 'node:path'
 import mockFs from 'mock-fs'
 import postcss from 'postcss'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 import plugin from '../src/main'
 import type { PluginOptions } from '../src/types'
 
-const FROM = join(__dirname, './style/index.css')
-const IMG_SRC = join(__dirname, './images')
-const SKIN_IMG = join(__dirname, './skin')
-const ORIGIN_IMG_ONE = join(IMG_SRC, './one.png')
-const ORIGIN_IMG_TWO = join(IMG_SRC, './two.png')
-const SKIN_IMG_ONE = join(SKIN_IMG, './one.png')
-const SKIN_IMG_TWO = join(SKIN_IMG, './two.png')
+const FROM = resolve('./style/index.css')
+const IMG_SRC = './images'
+const SKIN_IMG = './skin'
+const ORIGIN_IMG_ONE = resolve(IMG_SRC, './one.png')
+const ORIGIN_IMG_TWO = resolve(IMG_SRC, './two.png')
+const SKIN_IMG_ONE = resolve(SKIN_IMG, './one.png')
+const SKIN_IMG_TWO = resolve(SKIN_IMG, './two.png')
 const ORIGIN_IMG_ONE_RELATIVE = relative(dirname(FROM), ORIGIN_IMG_ONE)
 const ORIGIN_IMG_TWO_RELATIVE = relative(dirname(FROM), ORIGIN_IMG_TWO)
 
