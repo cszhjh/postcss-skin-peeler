@@ -35,6 +35,16 @@ exports[`test html and body combination > test body as prefix selector 1`] = `
     "
 `;
 
+exports[`test html and body combination > test body follow selector as prefix selector 1`] = `
+"
+      body.follow .body-prefix {
+        background: url(../images/one.png);
+      }
+      body.follow .skin .body-prefix {background-image: url("../skin/one.png");
+      }
+    "
+`;
+
 exports[`test html and body combination > test html as prefix selector 1`] = `
 "
       html .html-prefix {
@@ -51,6 +61,16 @@ exports[`test html and body combination > test html body as prefix selector 1`] 
         background: url(../images/one.png);
       }
       html body .skin .html-body-prefix {background-image: url("../skin/one.png");
+      }
+    "
+`;
+
+exports[`test html and body combination > test html follow selector as prefix selector 1`] = `
+"
+      html.follow .html-prefix {
+        background: url(../images/one.png);
+      }
+      html.follow .skin .html-prefix {background-image: url("../skin/one.png");
       }
     "
 `;
