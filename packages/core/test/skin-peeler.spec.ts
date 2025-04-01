@@ -150,6 +150,26 @@ describe('test html and body combination', () => {
     const output = await run(input)
     expect(output).toMatchSnapshot()
   })
+
+  it('test html follow selector as prefix selector', async () => {
+    const input = `
+      html.follow .html-prefix {
+        background: url(${ORIGIN_IMG_ONE_RELATIVE});
+      }
+    `
+    const output = await run(input)
+    expect(output).toMatchSnapshot()
+  })
+
+  it('test body follow selector as prefix selector', async () => {
+    const input = `
+      body.follow .body-prefix {
+        background: url(${ORIGIN_IMG_ONE_RELATIVE});
+      }
+    `
+    const output = await run(input)
+    expect(output).toMatchSnapshot()
+  })
 })
 
 describe('test rule in @media', () => {
