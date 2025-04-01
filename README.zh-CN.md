@@ -56,7 +56,7 @@ module.exports = {
   background-image: url('./images/bg.jpg');
 }
 
-.skin-peeler.main {
+.skin-peeler .main {
   background-image: url('./skin/bg.jpg');
 }
 ```
