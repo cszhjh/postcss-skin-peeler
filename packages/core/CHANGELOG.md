@@ -1,3 +1,12 @@
+## [0.1.4](https://github.com/cszhjh/postcss-skin-peeler/compare/v0.1.3...v0.1.4) (2025-04-03)
+
+
+### Bug Fixes
+
+* **core:** resolve incorrect rule cache hit ([4d5a876](https://github.com/cszhjh/postcss-skin-peeler/commit/4d5a8764199c23cc5af45c45aac437d1b6b02835))
+
+
+
 ## [0.1.3](https://github.com/cszhjh/postcss-skin-peeler/compare/v0.1.2...v0.1.3) (2025-04-02)
 
 
