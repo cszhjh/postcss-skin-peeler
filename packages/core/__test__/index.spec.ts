@@ -21,8 +21,8 @@ const PLUGIN_OPTIONS: PluginOptions = {
   prefixSelector: '.skin',
 }
 
-async function run(css: string) {
-  const { css: output } = await postcss([plugin(PLUGIN_OPTIONS)]).process(css, { from: FROM })
+async function run(css: string, options?: PluginOptions) {
+  const { css: output } = await postcss([plugin(options)]).process(css, { from: FROM })
   return output
 }
 
@@ -39,149 +39,174 @@ afterAll(() => {
   mockFs.restore()
 })
 
-describe('test url quotation mark', () => {
+describe.each([['generate' as const], ['replace' as const]])('mode = %s: test url quotation mark', (mode) => {
+  const options: PluginOptions = {
+    ...PLUGIN_OPTIONS,
+    mode,
+  }
+
   it('test url without quotes', async () => {
     const input = `
       .non-quotation {
-        background: url(${ORIGIN_IMG_ONE_RELATIVE});
+        background: url(${ORIGIN_IMG_ONE_RELATIVE}) no-repeat;
       }
     `
-    const output = await run(input)
+    const output = await run(input, options)
     expect(output).toMatchSnapshot()
   })
 
   it('test url with single quotes', async () => {
     const input = `
       .single-quote {
-        background: url('${ORIGIN_IMG_ONE_RELATIVE}');
+        background: url('${ORIGIN_IMG_ONE_RELATIVE}') no-repeat;
       }
     `
-    const output = await run(input)
+    const output = await run(input, options)
     expect(output).toMatchSnapshot()
   })
 
   it('test url with double quotes', async () => {
     const input = `
       .double-quote {
-        background: url("${ORIGIN_IMG_ONE_RELATIVE}");
+        background: url("${ORIGIN_IMG_ONE_RELATIVE}") no-repeat;
       }
     `
-    const output = await run(input)
+    const output = await run(input, options)
     expect(output).toMatchSnapshot()
   })
 })
 
-describe('test url with protocol', () => {
+describe.each([['generate' as const], ['replace' as const]])('mode = %s: test url with protocol', (mode) => {
+  const options: PluginOptions = {
+    ...PLUGIN_OPTIONS,
+    mode,
+  }
+
   it('test url with http', async () => {
     const input = `
       .http {
-        background: url(http://varletjs.org/varlet_icon.png);
+        background: url(http://varletjs.org/varlet_icon.png) no-repeat;
       }
     `
-    const output = await run(input)
+    const output = await run(input, options)
     expect(output).toBe(input)
   })
 
   it('test url with https', async () => {
     const input = `
       .http {
-        background: url(https://varletjs.org/varlet_icon.png);
+        background: url(https://varletjs.org/varlet_icon.png) no-repeat;
       }
     `
-    const output = await run(input)
+    const output = await run(input, options)
     expect(output).toBe(input)
   })
 })
 
-describe('test background stack', () => {
+describe.each([['generate' as const], ['replace' as const]])('mode = %s: test background stack', (mode) => {
+  const options: PluginOptions = {
+    ...PLUGIN_OPTIONS,
+    mode,
+  }
+
   it('test background is stacked in the single rule', async () => {
     const input = `
       .rule-single-stacked {
-        background: url(${ORIGIN_IMG_ONE_RELATIVE});
-        background-image: url(${ORIGIN_IMG_TWO_RELATIVE})
+        background: url(${ORIGIN_IMG_ONE_RELATIVE}) no-repeat;
+        background-image: url(${ORIGIN_IMG_TWO_RELATIVE}) no-repeat;
       }
     `
-    const output = await run(input)
+    const output = await run(input, options)
     expect(output).toMatchSnapshot()
   })
 
   it('test background is stacked in the multiple rule', async () => {
     const input = `
       .rule-multiple-stacked {
-        background: url(${ORIGIN_IMG_ONE_RELATIVE});
+        background: url(${ORIGIN_IMG_ONE_RELATIVE}) no-repeat;
       }
 
       .rule-multiple-stacked {
-        background: url(${ORIGIN_IMG_TWO_RELATIVE});
+        background: url(${ORIGIN_IMG_TWO_RELATIVE}) no-repeat;
       }
     `
-    const output = await run(input)
+    const output = await run(input, options)
     expect(output).toMatchSnapshot()
   })
 })
 
-describe('test html and body combination', () => {
+describe.each([['generate' as const], ['replace' as const]])('mode = %s: test html and body combination', (mode) => {
+  const options: PluginOptions = {
+    ...PLUGIN_OPTIONS,
+    mode,
+  }
+
   it('test html as prefix selector', async () => {
     const input = `
       html .html-prefix {
-        background: url(${ORIGIN_IMG_ONE_RELATIVE});
+        background: url(${ORIGIN_IMG_ONE_RELATIVE}) no-repeat;
       }
     `
-    const output = await run(input)
+    const output = await run(input, options)
     expect(output).toMatchSnapshot()
   })
 
   it('test body as prefix selector', async () => {
     const input = `
       body .body-prefix {
-        background: url(${ORIGIN_IMG_ONE_RELATIVE});
+        background: url(${ORIGIN_IMG_ONE_RELATIVE}) no-repeat;
       }
     `
-    const output = await run(input)
+    const output = await run(input, options)
     expect(output).toMatchSnapshot()
   })
 
   it('test html body as prefix selector', async () => {
     const input = `
       html body .html-body-prefix {
-        background: url(${ORIGIN_IMG_ONE_RELATIVE});
+        background: url(${ORIGIN_IMG_ONE_RELATIVE}) no-repeat;
       }
     `
-    const output = await run(input)
+    const output = await run(input, options)
     expect(output).toMatchSnapshot()
   })
 
   it('test html follow selector as prefix selector', async () => {
     const input = `
       html.follow .html-prefix {
-        background: url(${ORIGIN_IMG_ONE_RELATIVE});
+        background: url(${ORIGIN_IMG_ONE_RELATIVE}) no-repeat;
       }
     `
-    const output = await run(input)
+    const output = await run(input, options)
     expect(output).toMatchSnapshot()
   })
 
   it('test body follow selector as prefix selector', async () => {
     const input = `
       body.follow .body-prefix {
-        background: url(${ORIGIN_IMG_ONE_RELATIVE});
+        background: url(${ORIGIN_IMG_ONE_RELATIVE}) no-repeat;
       }
     `
-    const output = await run(input)
+    const output = await run(input, options)
     expect(output).toMatchSnapshot()
   })
 })
 
-describe('test rule in @media', () => {
+describe.each([['generate' as const], ['replace' as const]])('mode = %s: test rule in @media', (mode) => {
+  const options: PluginOptions = {
+    ...PLUGIN_OPTIONS,
+    mode,
+  }
+
   const input = `
     @media screen and (min-width: 1024px) {
       .media {
-        background: url(${ORIGIN_IMG_ONE_RELATIVE});
+        background: url(${ORIGIN_IMG_ONE_RELATIVE}) no-repeat;
       }
     }
   `
   it('test rule in @media', async () => {
-    const output = await run(input)
+    const output = await run(input, options)
     expect(output).toMatchSnapshot()
   })
 })

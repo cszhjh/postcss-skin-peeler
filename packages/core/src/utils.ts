@@ -1,5 +1,5 @@
-import type { ChildNode, Declaration, Rule } from 'postcss'
-import type { PluginOptions } from './types'
+import { Declaration, type ChildNode, type Rule } from 'postcss'
+import { type PluginOptions } from './types'
 
 const htmlBodyRegex = /^((?:body|html)(?:[.#[][\w-]+)*(?:\s+body(?:[.#[][\w-]+)*)?)(.*)$/
 const backgroundImageRegex = /url\((['"]?)(?!https?:\/\/)([^'")]+)\1\)/
@@ -24,6 +24,24 @@ export function getBackgroundUrlValue(decl: Declaration): string {
     return ''
   }
   return backgroundImageRegex.exec(decl.value)?.[2] ?? ''
+}
+
+export function replaceBackgroundUrlValue(source: string, path: string): string {
+  return source.replace(backgroundImageRegex, `url("${path}")`)
+}
+
+export function generateRule(rule: Rule, selector: string, path: string) {
+  const skinDecl = new Declaration({
+    prop: 'background-image',
+    value: `url("${path}")`,
+  })
+
+  const skinRule = rule.cloneAfter({
+    selector,
+    nodes: [skinDecl],
+  })
+
+  return skinRule
 }
 
 export function normalizePrefixSelector(prefixSelector: PluginOptions['prefixSelector']) {
