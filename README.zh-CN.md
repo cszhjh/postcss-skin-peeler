@@ -37,26 +37,33 @@ module.exports = {
 
 ## 选项
 
-| 选项             | 类型     | 默认值                      | 描述                                                                 |
-| ---------------- | -------- | --------------------------- | -------------------------------------------------------------------- |
-| imgSrc           | `string` | `resolve(__dirname, './src/images')` | 图片目录的路径。                                                     |
-| skinSrc          | `string` | `resolve(__dirname, './src/skin')`    | 皮肤图片所在的目录。                                                 |
-| prefixSelector   | `string \| ((selector: string) => string)` | `.skin-peeler` | 生成的CSS规则的前缀。                                             |
+| 选项           | 类型                                       | 默认值                               | 描述                                                                      |
+|----------------|--------------------------------------------|--------------------------------------|-------------------------------------------------------------------------|
+| imgSrc         | `string`                                   | `resolve(__dirname, './src/images')` | 图片目录的路径。                                                           |
+| skinSrc        | `string`                                   | `resolve(__dirname, './src/skin')`   | 皮肤图片所在的目录。                                                       |
+| prefixSelector | `string \| ((selector: string) => string)` | `.skin-peeler`                       | 生成的CSS规则的前缀。                                                      |
+| mode           | `string`                                   | `generate`                           | 控制插件在处理background-image时的行为模式，可选值为 `generate` `replace`。 |
 
 ## 示例
 
+### 模式
 ```css
 /* input */
 .main {
   background-image: url('./images/bg.jpg');
 }
 
-/* output */
+/* generate mode output */
 .main {
   background-image: url('./images/bg.jpg');
 }
 
 .skin-peeler .main {
+  background-image: url('./skin/bg.jpg');
+}
+
+/* replace mode output */
+.main {
   background-image: url('./skin/bg.jpg');
 }
 ```

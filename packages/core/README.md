@@ -37,13 +37,16 @@ module.exports = {
 
 ## Options
 
-| Option    | Type     | Default | Description                                                                     |
-| --------- | -------- | ------- | ----------------------------------------------------------------                |
-| imgSrc    | `string`   |    `resolve(__dirname, './src/images')`     | The path to the image directory.                                                 |
-| skinDir   | `string`   |     `resolve(__dirname, './src/skin')`    | The directory where skin images are located.                                     |
-| prefixSelector    | `string \| ((selector: string) => string)`   |     `.skin-peeler`    | The prefix to be added to the generated CSS rules.                               |
+| Option         | Type                                       | Default                              | Description                                                                                                    |
+|----------------|--------------------------------------------|--------------------------------------|----------------------------------------------------------------------------------------------------------------|
+| imgSrc         | `string`                                   | `resolve(__dirname, './src/images')` | The path to the image directory.                                                                               |
+| skinDir        | `string`                                   | `resolve(__dirname, './src/skin')`   | The directory where skin images are located.                                                                   |
+| prefixSelector | `string \| ((selector: string) => string)` | `.skin-peeler`                       | The prefix to be added to the generated CSS rules.                                                             |
+| mode           | `string`                                   | `generate`                           | Control the behavior pattern of plugins when processing background images, Can be set to `generate` `replace`. |
 
 ## Example
+
+### Mode
 
 ```css
 /* input */
@@ -51,12 +54,17 @@ module.exports = {
   background-image: url('./images/bg.jpg');
 }
 
-/* output */
+/* generate mode output */
 .main {
   background-image: url('./images/bg.jpg');
 }
 
 .skin-peeler .main {
+  background-image: url('./skin/bg.jpg');
+}
+
+/* replace mode output */
+.main {
   background-image: url('./skin/bg.jpg');
 }
 ```
