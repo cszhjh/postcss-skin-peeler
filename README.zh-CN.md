@@ -47,6 +47,7 @@ module.exports = {
 ## 示例
 
 ### 模式
+
 ```css
 /* input */
 .main {
