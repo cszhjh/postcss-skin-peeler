@@ -1,4 +1,5 @@
 import { Declaration, type ChildNode, type Rule } from 'postcss'
+import slash from 'slash'
 import { type PluginOptions } from './types'
 
 const htmlBodyRegex = /^((?:body|html)(?:[.#[][\w-]+)*(?:\s+body(?:[.#[][\w-]+)*)?)(.*)$/
@@ -17,6 +18,10 @@ export function isRule(node: Declaration['parent']): node is Rule {
 
 export function isDeclaration(node: ChildNode): node is Declaration {
   return node.type === 'decl'
+}
+
+export function normalizePath(path: string) {
+  return slash(path)
 }
 
 export function getBackgroundUrlValue(decl: Declaration): string {
