@@ -1,3 +1,17 @@
+## [0.1.5](https://github.com/cszhjh/postcss-skin-peeler/compare/v0.1.4...v0.1.5) (2025-04-29)
+
+
+### Bug Fixes
+
+* convert Windows paths to Unix style ([8faec75](https://github.com/cszhjh/postcss-skin-peeler/commit/8faec75172a1939d2a904214f352d7e1c31a2082))
+
+
+### Features
+
+* **core:** support generate or replace mode ([e485211](https://github.com/cszhjh/postcss-skin-peeler/commit/e4852119ab0e856495c147feebcdbc54e18c15c4))
+
+
+
 ## [0.1.4](https://github.com/cszhjh/postcss-skin-peeler/compare/v0.1.3...v0.1.4) (2025-04-03)
 
 
