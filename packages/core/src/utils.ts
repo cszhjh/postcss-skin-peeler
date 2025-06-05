@@ -1,5 +1,4 @@
 import { Declaration, type ChildNode, type Rule } from 'postcss'
-import slash from 'slash'
 import { type PluginOptions } from './types'
 
 const htmlBodyRegex = /^((?:body|html)(?:[.#[][\w-]+)*(?:\s+body(?:[.#[][\w-]+)*)?)(.*)$/
@@ -18,6 +17,16 @@ export function isRule(node: Declaration['parent']): node is Rule {
 
 export function isDeclaration(node: ChildNode): node is Declaration {
   return node.type === 'decl'
+}
+
+export function slash(path: string) {
+  const isExtendedLengthPath = path.startsWith('\\\\?\\')
+
+  if (isExtendedLengthPath) {
+    return path
+  }
+
+  return path.replace(/\\/g, '/')
 }
 
 export function normalizePath(path: string) {
