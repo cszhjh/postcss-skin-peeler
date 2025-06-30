@@ -2,8 +2,8 @@
   "plugins": {
     "postcss-skin-peeler": {
       "imgSrc": "./src/images",
-      "skinSrc": "./skin",
-      "prefixSelector": ".skin"
+      "skinSrc": "./src/skin",
+      "prefixSelector": ".skin-peeler"
     }
   }
 }

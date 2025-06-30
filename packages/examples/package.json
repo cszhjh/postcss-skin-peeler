@@ -4,8 +4,8 @@
   "private": true,
   "source": "src/index.html",
   "scripts": {
-    "build": "rimraf dist && parcel build",
-    "dev": "parcel"
+    "build": "rimraf dist && NODE_ENV=production parcel build",
+    "dev": "NODE_ENV=test parcel"
   },
   "devDependencies": {
     "@parcel/config-default": "^2.14.3",
