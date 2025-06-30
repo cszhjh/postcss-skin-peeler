@@ -21,7 +21,7 @@ export function transform(
   const styleDirname = dirname(styleFilePath)
   const originalFilePath = resolve(styleDirname, originalUrl)
 
-  for (const option of options ?? []) {
+  for (const option of options) {
     const { mode, imgSrc, skinSrc, prefixSelector } = option
     const suffixPath = relative(imgSrc, originalFilePath)
     const skinFilePath = join(skinSrc, suffixPath)
@@ -44,7 +44,6 @@ export function transform(
       cacheSkinRule.walkDecls(/^background/, (decl) => {
         decl.value = injectDevComment(replaceBackgroundUrlValue(decl.value, skinRelativeFilePath), 'generate_rewrite')
       })
-
       continue
     }
 
