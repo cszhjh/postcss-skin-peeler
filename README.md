@@ -35,6 +35,30 @@ module.exports = {
 }
 ```
 
+When configuring multiple skins, you can pass an array:
+
+```js
+const path = require('path')
+
+module.exports = {
+  "plugins": {
+    "postcss-skin-peeler": [
+      {
+        "mode": "generate",
+        "imgSrc": path.resolve(__dirname, "./src/images"),
+        "skinSrc": path.resolve(__dirname, "./src/skin-generate"),
+        "prefixSelector": ".skin-generator"
+      },
+      {
+        "mode": "replace",
+        "imgSrc": path.resolve(__dirname, "./src/images"),
+        "skinSrc": path.resolve(__dirname, "./src/skin-replace"),
+      }
+    ]
+  }
+}
+```
+
 ## Options
 
 | Option         | Type                                       | Default                              | Description                                                                                                    |

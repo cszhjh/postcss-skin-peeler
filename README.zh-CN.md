@@ -35,6 +35,30 @@ module.exports = {
 }
 ```
 
+配置多套皮肤时，可以传入一个数组：
+
+```js
+const path = require('path')
+
+module.exports = {
+  "plugins": {
+    "postcss-skin-peeler": [
+      {
+        "mode": "generate",
+        "imgSrc": path.resolve(__dirname, "./src/images"),
+        "skinSrc": path.resolve(__dirname, "./src/skin-generate"),
+        "prefixSelector": ".skin-generator"
+      },
+      {
+        "mode": "replace",
+        "imgSrc": path.resolve(__dirname, "./src/images"),
+        "skinSrc": path.resolve(__dirname, "./src/skin-replace"),
+      }
+    ]
+  }
+}
+```
+
 ## 选项
 
 | 选项           | 类型                                       | 默认值                               | 描述                                                                      |
