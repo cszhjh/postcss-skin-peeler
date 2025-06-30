@@ -7,21 +7,28 @@ import type { PluginOptions } from '../src/types'
 
 const FROM = resolve('./style/index.css')
 const IMG_SRC = './images'
-const SKIN_IMG = './skin'
+const GENERATE_SKIN_IMG = './generate-skin'
+const REPLACE_SKIN_IMG = './replace-skin'
 const ORIGIN_IMG_ONE = resolve(IMG_SRC, './one.png')
 const ORIGIN_IMG_TWO = resolve(IMG_SRC, './two.png')
-const SKIN_IMG_ONE = resolve(SKIN_IMG, './one.png')
-const SKIN_IMG_TWO = resolve(SKIN_IMG, './two.png')
 const ORIGIN_IMG_ONE_RELATIVE = relative(dirname(FROM), ORIGIN_IMG_ONE)
 const ORIGIN_IMG_TWO_RELATIVE = relative(dirname(FROM), ORIGIN_IMG_TWO)
 
-const PLUGIN_OPTIONS: PluginOptions = {
-  imgSrc: IMG_SRC,
-  skinSrc: SKIN_IMG,
-  prefixSelector: '.skin',
-}
+const PLUGIN_OPTIONS: PluginOptions[] = [
+  {
+    mode: 'generate',
+    imgSrc: IMG_SRC,
+    skinSrc: GENERATE_SKIN_IMG,
+    prefixSelector: '.skin',
+  },
+  {
+    mode: 'replace',
+    imgSrc: IMG_SRC,
+    skinSrc: REPLACE_SKIN_IMG,
+  },
+]
 
-async function run(css: string, options?: PluginOptions) {
+async function run(css: string, options: PluginOptions | PluginOptions[] = PLUGIN_OPTIONS) {
   const { css: output } = await postcss([plugin(options)]).process(css, { from: FROM })
   return output
 }
@@ -30,8 +37,10 @@ beforeAll(() => {
   mockFs({
     [ORIGIN_IMG_ONE]: Buffer.from([8, 6, 7, 5, 3, 0, 9]),
     [ORIGIN_IMG_TWO]: Buffer.from([9, 6, 7, 5, 3, 0, 9]),
-    [SKIN_IMG_ONE]: Buffer.from([9, 7, 8, 6, 4, 1, 10]),
-    [SKIN_IMG_TWO]: Buffer.from([10, 7, 8, 6, 4, 1, 10]),
+    [resolve(GENERATE_SKIN_IMG, './one.png')]: Buffer.from([9, 7, 8, 6, 4, 1, 10]),
+    [resolve(GENERATE_SKIN_IMG, './two.png')]: Buffer.from([10, 7, 8, 6, 4, 1, 10]),
+    [resolve(REPLACE_SKIN_IMG, './one.png')]: Buffer.from([9, 7, 8, 6, 4, 1, 10]),
+    [resolve(REPLACE_SKIN_IMG, './two.png')]: Buffer.from([10, 7, 8, 6, 4, 1, 10]),
   })
 })
 
@@ -39,19 +48,14 @@ afterAll(() => {
   mockFs.restore()
 })
 
-describe.each([['generate' as const], ['replace' as const]])('mode = %s: test url quotation mark', (mode) => {
-  const options: PluginOptions = {
-    ...PLUGIN_OPTIONS,
-    mode,
-  }
-
+describe('test url quotation mark', () => {
   it('test url without quotes', async () => {
     const input = `
       .non-quotation {
         background: url(${ORIGIN_IMG_ONE_RELATIVE}) no-repeat;
       }
     `
-    const output = await run(input, options)
+    const output = await run(input)
     expect(output).toMatchSnapshot()
   })
 
@@ -61,7 +65,7 @@ describe.each([['generate' as const], ['replace' as const]])('mode = %s: test ur
         background: url('${ORIGIN_IMG_ONE_RELATIVE}') no-repeat;
       }
     `
-    const output = await run(input, options)
+    const output = await run(input)
     expect(output).toMatchSnapshot()
   })
 
@@ -71,24 +75,19 @@ describe.each([['generate' as const], ['replace' as const]])('mode = %s: test ur
         background: url("${ORIGIN_IMG_ONE_RELATIVE}") no-repeat;
       }
     `
-    const output = await run(input, options)
+    const output = await run(input)
     expect(output).toMatchSnapshot()
   })
 })
 
-describe.each([['generate' as const], ['replace' as const]])('mode = %s: test url with protocol', (mode) => {
-  const options: PluginOptions = {
-    ...PLUGIN_OPTIONS,
-    mode,
-  }
-
+describe('test url with protocol', () => {
   it('test url with http', async () => {
     const input = `
       .http {
         background: url(http://varletjs.org/varlet_icon.png) no-repeat;
       }
     `
-    const output = await run(input, options)
+    const output = await run(input)
     expect(output).toBe(input)
   })
 
@@ -98,17 +97,12 @@ describe.each([['generate' as const], ['replace' as const]])('mode = %s: test ur
         background: url(https://varletjs.org/varlet_icon.png) no-repeat;
       }
     `
-    const output = await run(input, options)
+    const output = await run(input)
     expect(output).toBe(input)
   })
 })
 
-describe.each([['generate' as const], ['replace' as const]])('mode = %s: test background stack', (mode) => {
-  const options: PluginOptions = {
-    ...PLUGIN_OPTIONS,
-    mode,
-  }
-
+describe('test background stack', () => {
   it('test background is stacked in the single rule', async () => {
     const input = `
       .rule-single-stacked {
@@ -116,7 +110,7 @@ describe.each([['generate' as const], ['replace' as const]])('mode = %s: test ba
         background-image: url(${ORIGIN_IMG_TWO_RELATIVE}) no-repeat;
       }
     `
-    const output = await run(input, options)
+    const output = await run(input)
     expect(output).toMatchSnapshot()
   })
 
@@ -130,24 +124,19 @@ describe.each([['generate' as const], ['replace' as const]])('mode = %s: test ba
         background: url(${ORIGIN_IMG_TWO_RELATIVE}) no-repeat;
       }
     `
-    const output = await run(input, options)
+    const output = await run(input)
     expect(output).toMatchSnapshot()
   })
 })
 
-describe.each([['generate' as const], ['replace' as const]])('mode = %s: test html and body combination', (mode) => {
-  const options: PluginOptions = {
-    ...PLUGIN_OPTIONS,
-    mode,
-  }
-
+describe('test html and body combination', () => {
   it('test html as prefix selector', async () => {
     const input = `
       html .html-prefix {
         background: url(${ORIGIN_IMG_ONE_RELATIVE}) no-repeat;
       }
     `
-    const output = await run(input, options)
+    const output = await run(input)
     expect(output).toMatchSnapshot()
   })
 
@@ -157,7 +146,7 @@ describe.each([['generate' as const], ['replace' as const]])('mode = %s: test ht
         background: url(${ORIGIN_IMG_ONE_RELATIVE}) no-repeat;
       }
     `
-    const output = await run(input, options)
+    const output = await run(input)
     expect(output).toMatchSnapshot()
   })
 
@@ -167,7 +156,7 @@ describe.each([['generate' as const], ['replace' as const]])('mode = %s: test ht
         background: url(${ORIGIN_IMG_ONE_RELATIVE}) no-repeat;
       }
     `
-    const output = await run(input, options)
+    const output = await run(input)
     expect(output).toMatchSnapshot()
   })
 
@@ -177,7 +166,7 @@ describe.each([['generate' as const], ['replace' as const]])('mode = %s: test ht
         background: url(${ORIGIN_IMG_ONE_RELATIVE}) no-repeat;
       }
     `
-    const output = await run(input, options)
+    const output = await run(input)
     expect(output).toMatchSnapshot()
   })
 
@@ -187,17 +176,12 @@ describe.each([['generate' as const], ['replace' as const]])('mode = %s: test ht
         background: url(${ORIGIN_IMG_ONE_RELATIVE}) no-repeat;
       }
     `
-    const output = await run(input, options)
+    const output = await run(input)
     expect(output).toMatchSnapshot()
   })
 })
 
-describe.each([['generate' as const], ['replace' as const]])('mode = %s: test rule in @media', (mode) => {
-  const options: PluginOptions = {
-    ...PLUGIN_OPTIONS,
-    mode,
-  }
-
+describe('test rule in @media', () => {
   const input = `
     @media screen and (min-width: 1024px) {
       .media {
@@ -206,7 +190,7 @@ describe.each([['generate' as const], ['replace' as const]])('mode = %s: test ru
     }
   `
   it('test rule in @media', async () => {
-    const output = await run(input, options)
+    const output = await run(input)
     expect(output).toMatchSnapshot()
   })
 })

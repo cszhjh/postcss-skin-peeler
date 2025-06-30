@@ -1,6 +1,8 @@
+import { resolve } from 'path'
 import { Declaration, type ChildNode, type Rule } from 'postcss'
-import { type PluginOptions } from './types'
+import { TransformOptions, type PluginOptions } from './types'
 
+const isProduction = process.env.NODE_ENV === 'production'
 const htmlBodyRegex = /^((?:body|html)(?:[.#[][\w-]+)*(?:\s+body(?:[.#[][\w-]+)*)?)(.*)$/
 const backgroundImageRegex = /url\((['"]?)(?!https?:\/\/)([^'")]+)\1\)/
 
@@ -9,6 +11,10 @@ export const declarationKeys = ['background', 'background-image']
 // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
 export function isFunction(val: unknown): val is Function {
   return typeof val === 'function'
+}
+
+export function isArray(val: unknown): val is unknown[] {
+  return Array.isArray(val)
 }
 
 export function isRule(node: Declaration['parent']): node is Rule {
@@ -29,8 +35,11 @@ export function slash(path: string) {
   return path.replace(/\\/g, '/')
 }
 
-export function normalizePath(path: string) {
-  return slash(path)
+export function injectDevComment(value: string, mode: TransformOptions['mode'] | 'generate_rewrite'): string {
+  if (isProduction) {
+    return value
+  }
+  return `/* __DEV_${mode.toUpperCase()}__ */ ${value}`
 }
 
 export function getBackgroundUrlValue(decl: Declaration): string {
@@ -47,7 +56,7 @@ export function replaceBackgroundUrlValue(source: string, path: string): string 
 export function generateRule(rule: Rule, selector: string, path: string) {
   const skinDecl = new Declaration({
     prop: 'background-image',
-    value: `url("${path}")`,
+    value: injectDevComment(`url("${path}")`, 'generate'),
   })
 
   const skinRule = rule.cloneAfter({
@@ -56,6 +65,25 @@ export function generateRule(rule: Rule, selector: string, path: string) {
   })
 
   return skinRule
+}
+
+export function normalizeOptions(options: PluginOptions | PluginOptions[] | undefined): TransformOptions[] {
+  const _opts: PluginOptions[] | undefined = options && isArray(options) ? options : [options!]
+
+  return (
+    _opts?.map(
+      ({ mode = 'generate', imgSrc = './src/images', skinSrc = './src/skin', prefixSelector = '.skin-peeler' }) => ({
+        mode,
+        imgSrc: resolve(imgSrc),
+        skinSrc: resolve(skinSrc),
+        prefixSelector: normalizePrefixSelector(prefixSelector),
+      }),
+    ) ?? []
+  )
+}
+
+export function normalizePath(path: string) {
+  return slash(path)
 }
 
 export function normalizePrefixSelector(prefixSelector: PluginOptions['prefixSelector']) {

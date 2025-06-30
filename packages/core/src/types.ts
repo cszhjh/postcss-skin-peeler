@@ -1,8 +1,8 @@
 export type PluginOptions = {
+  mode?: ModeType
   imgSrc?: string
   skinSrc?: string
   prefixSelector?: string | ((selector: string) => string)
-  mode?: ModeType
 }
 
 export type ModeType = 'generate' | 'replace'
