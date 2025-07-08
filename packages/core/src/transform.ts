@@ -79,8 +79,10 @@ function replace({
   size: false | ImageSize
   modeString: Parameters<typeof injectDevComment>[1]
 }) {
+  const { width, height } = size || {}
   let hasWidth = false
   let hasHeight = false
+  let hasBgSize = false
 
   rule.walkDecls(/^(background|width|height)/, (decl) => {
     if (['width', 'height'].includes(decl.prop)) {
@@ -94,13 +96,22 @@ function replace({
       return
     }
 
+    if (decl.prop === 'background-size' && width && height) {
+      decl.value = injectDevComment(`${width} ${height}`, modeString)
+      hasBgSize = true
+      return
+    }
+
     decl.value = injectDevComment(replaceBackgroundUrlValue(decl.value, path), modeString)
   })
 
   if (size) {
     const decls = [
-      !hasWidth ? new Declaration({ prop: 'width', value: injectDevComment(size.width, modeString) }) : null,
-      !hasHeight ? new Declaration({ prop: 'height', value: injectDevComment(size.height, modeString) }) : null,
+      !hasWidth && width ? new Declaration({ prop: 'width', value: injectDevComment(width, modeString) }) : null,
+      !hasHeight && height ? new Declaration({ prop: 'height', value: injectDevComment(height, modeString) }) : null,
+      !hasBgSize && width && height
+        ? new Declaration({ prop: 'background-size', value: injectDevComment(`${width} ${height}`, modeString) })
+        : null,
     ].filter(Boolean) as Declaration[]
 
     rule.append(decls)
@@ -135,6 +146,7 @@ function generate({
         },
         width ? { prop: 'width', value: injectDevComment(width, 'generate') } : null,
         height ? { prop: 'height', value: injectDevComment(height, 'generate') } : null,
+        width && height ? { prop: 'background-size', value: injectDevComment(`${width} ${height}`, 'generate') } : null,
       ] as DeclarationProps[]
     ).filter(Boolean),
   )

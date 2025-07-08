@@ -6,14 +6,16 @@ exports[`test background stack > test background is stacked in the multiple rule
         background: /* __DEV_REPLACE__ */ url("../images/replace/one.jpg") no-repeat;
         width: /* __DEV_REPLACE__ */ 300px;
         height: /* __DEV_REPLACE__ */ 300px;
+        background-size: /* __DEV_REPLACE__ */ 300px 300px;
       }
-      .skin .rule-multiple-stacked {background-image: /* __DEV_GENERATE_REWRITE__ */ /* __DEV_GENERATE__ */ url("../images/generate/two.jpg");width: /* __DEV_GENERATE_REWRITE__ */ 280px;height: /* __DEV_GENERATE_REWRITE__ */ 350px;
+      .skin .rule-multiple-stacked {background-image: /* __DEV_GENERATE_REWRITE__ */ /* __DEV_GENERATE__ */ url("../images/generate/two.jpg");width: /* __DEV_GENERATE_REWRITE__ */ 280px;height: /* __DEV_GENERATE_REWRITE__ */ 350px;background-size: /* __DEV_GENERATE_REWRITE__ */ 280px 350px;
       }
 
       .rule-multiple-stacked {
         background: /* __DEV_REPLACE__ */ url("../images/replace/two.jpg") no-repeat;
         width: /* __DEV_REPLACE__ */ 350px;
         height: /* __DEV_REPLACE__ */ 350px;
+        background-size: /* __DEV_REPLACE__ */ 350px 350px;
       }
     "
 `;
@@ -25,8 +27,9 @@ exports[`test background stack > test background is stacked in the single rule 1
         background-image: /* __DEV_REPLACE__ */ url("../images/replace/one.jpg") no-repeat;
         width: /* __DEV_REPLACE__ */ 300px;
         height: /* __DEV_REPLACE__ */ 300px;
+        background-size: /* __DEV_REPLACE__ */ 300px 300px;
       }
-      .skin .rule-single-stacked {background-image: /* __DEV_GENERATE__ */ url("../images/generate/one.jpg");width: /* __DEV_GENERATE__ */ 300px;height: /* __DEV_GENERATE__ */ 200px;
+      .skin .rule-single-stacked {background-image: /* __DEV_GENERATE__ */ url("../images/generate/one.jpg");width: /* __DEV_GENERATE__ */ 300px;height: /* __DEV_GENERATE__ */ 200px;background-size: /* __DEV_GENERATE__ */ 300px 200px;
       }
     "
 `;
@@ -37,8 +40,9 @@ exports[`test cover size > test custom unit cover size 1`] = `
         background: /* __DEV_REPLACE__ */ url("../images/replace/one.jpg") no-repeat;
         width: /* __DEV_REPLACE__ */ 3rem;
         height: /* __DEV_REPLACE__ */ 3rem;
+        background-size: /* __DEV_REPLACE__ */ 3rem 3rem;
       }
-      .skin .wrapper {background-image: /* __DEV_GENERATE__ */ url("../images/generate/one.jpg");width: /* __DEV_GENERATE__ */ 3rem;height: /* __DEV_GENERATE__ */ 2rem;
+      .skin .wrapper {background-image: /* __DEV_GENERATE__ */ url("../images/generate/one.jpg");width: /* __DEV_GENERATE__ */ 3rem;height: /* __DEV_GENERATE__ */ 2rem;background-size: /* __DEV_GENERATE__ */ 3rem 2rem;
       }
     "
 `;
@@ -49,8 +53,9 @@ exports[`test cover size > test default unit cover size 1`] = `
         background: /* __DEV_REPLACE__ */ url("../images/replace/one.jpg") no-repeat;
         width: /* __DEV_REPLACE__ */ 300px;
         height: /* __DEV_REPLACE__ */ 300px;
+        background-size: /* __DEV_REPLACE__ */ 300px 300px;
       }
-      .skin .wrapper {background-image: /* __DEV_GENERATE__ */ url("../images/generate/one.jpg");width: /* __DEV_GENERATE__ */ 300px;height: /* __DEV_GENERATE__ */ 200px;
+      .skin .wrapper {background-image: /* __DEV_GENERATE__ */ url("../images/generate/one.jpg");width: /* __DEV_GENERATE__ */ 300px;height: /* __DEV_GENERATE__ */ 200px;background-size: /* __DEV_GENERATE__ */ 300px 200px;
       }
     "
 `;
@@ -61,8 +66,9 @@ exports[`test html and body combination > test body as prefix selector 1`] = `
         background: /* __DEV_REPLACE__ */ url("../images/replace/one.jpg") no-repeat;
         width: /* __DEV_REPLACE__ */ 300px;
         height: /* __DEV_REPLACE__ */ 300px;
+        background-size: /* __DEV_REPLACE__ */ 300px 300px;
       }
-      body .skin .body-prefix {background-image: /* __DEV_GENERATE__ */ url("../images/generate/one.jpg");width: /* __DEV_GENERATE__ */ 300px;height: /* __DEV_GENERATE__ */ 200px;
+      body .skin .body-prefix {background-image: /* __DEV_GENERATE__ */ url("../images/generate/one.jpg");width: /* __DEV_GENERATE__ */ 300px;height: /* __DEV_GENERATE__ */ 200px;background-size: /* __DEV_GENERATE__ */ 300px 200px;
       }
     "
 `;
@@ -73,8 +79,9 @@ exports[`test html and body combination > test body follow selector as prefix se
         background: /* __DEV_REPLACE__ */ url("../images/replace/one.jpg") no-repeat;
         width: /* __DEV_REPLACE__ */ 300px;
         height: /* __DEV_REPLACE__ */ 300px;
+        background-size: /* __DEV_REPLACE__ */ 300px 300px;
       }
-      body.follow .skin .body-prefix {background-image: /* __DEV_GENERATE__ */ url("../images/generate/one.jpg");width: /* __DEV_GENERATE__ */ 300px;height: /* __DEV_GENERATE__ */ 200px;
+      body.follow .skin .body-prefix {background-image: /* __DEV_GENERATE__ */ url("../images/generate/one.jpg");width: /* __DEV_GENERATE__ */ 300px;height: /* __DEV_GENERATE__ */ 200px;background-size: /* __DEV_GENERATE__ */ 300px 200px;
       }
     "
 `;
@@ -85,8 +92,9 @@ exports[`test html and body combination > test html as prefix selector 1`] = `
         background: /* __DEV_REPLACE__ */ url("../images/replace/one.jpg") no-repeat;
         width: /* __DEV_REPLACE__ */ 300px;
         height: /* __DEV_REPLACE__ */ 300px;
+        background-size: /* __DEV_REPLACE__ */ 300px 300px;
       }
-      html .skin .html-prefix {background-image: /* __DEV_GENERATE__ */ url("../images/generate/one.jpg");width: /* __DEV_GENERATE__ */ 300px;height: /* __DEV_GENERATE__ */ 200px;
+      html .skin .html-prefix {background-image: /* __DEV_GENERATE__ */ url("../images/generate/one.jpg");width: /* __DEV_GENERATE__ */ 300px;height: /* __DEV_GENERATE__ */ 200px;background-size: /* __DEV_GENERATE__ */ 300px 200px;
       }
     "
 `;
@@ -97,8 +105,9 @@ exports[`test html and body combination > test html body as prefix selector 1`] 
         background: /* __DEV_REPLACE__ */ url("../images/replace/one.jpg") no-repeat;
         width: /* __DEV_REPLACE__ */ 300px;
         height: /* __DEV_REPLACE__ */ 300px;
+        background-size: /* __DEV_REPLACE__ */ 300px 300px;
       }
-      html body .skin .html-body-prefix {background-image: /* __DEV_GENERATE__ */ url("../images/generate/one.jpg");width: /* __DEV_GENERATE__ */ 300px;height: /* __DEV_GENERATE__ */ 200px;
+      html body .skin .html-body-prefix {background-image: /* __DEV_GENERATE__ */ url("../images/generate/one.jpg");width: /* __DEV_GENERATE__ */ 300px;height: /* __DEV_GENERATE__ */ 200px;background-size: /* __DEV_GENERATE__ */ 300px 200px;
       }
     "
 `;
@@ -109,8 +118,9 @@ exports[`test html and body combination > test html follow selector as prefix se
         background: /* __DEV_REPLACE__ */ url("../images/replace/one.jpg") no-repeat;
         width: /* __DEV_REPLACE__ */ 300px;
         height: /* __DEV_REPLACE__ */ 300px;
+        background-size: /* __DEV_REPLACE__ */ 300px 300px;
       }
-      html.follow .skin .html-prefix {background-image: /* __DEV_GENERATE__ */ url("../images/generate/one.jpg");width: /* __DEV_GENERATE__ */ 300px;height: /* __DEV_GENERATE__ */ 200px;
+      html.follow .skin .html-prefix {background-image: /* __DEV_GENERATE__ */ url("../images/generate/one.jpg");width: /* __DEV_GENERATE__ */ 300px;height: /* __DEV_GENERATE__ */ 200px;background-size: /* __DEV_GENERATE__ */ 300px 200px;
       }
     "
 `;
@@ -122,8 +132,9 @@ exports[`test rule in @media > test rule in @media 1`] = `
         background: /* __DEV_REPLACE__ */ url("../images/replace/one.jpg") no-repeat;
         width: /* __DEV_REPLACE__ */ 300px;
         height: /* __DEV_REPLACE__ */ 300px;
+        background-size: /* __DEV_REPLACE__ */ 300px 300px;
       }
-      .skin .media {background-image: /* __DEV_GENERATE__ */ url("../images/generate/one.jpg");width: /* __DEV_GENERATE__ */ 300px;height: /* __DEV_GENERATE__ */ 200px;
+      .skin .media {background-image: /* __DEV_GENERATE__ */ url("../images/generate/one.jpg");width: /* __DEV_GENERATE__ */ 300px;height: /* __DEV_GENERATE__ */ 200px;background-size: /* __DEV_GENERATE__ */ 300px 200px;
       }
     }
   "
@@ -135,8 +146,9 @@ exports[`test url quotation mark > test url with double quotes 1`] = `
         background: /* __DEV_REPLACE__ */ url("../images/replace/one.jpg") no-repeat;
         width: /* __DEV_REPLACE__ */ 300px;
         height: /* __DEV_REPLACE__ */ 300px;
+        background-size: /* __DEV_REPLACE__ */ 300px 300px;
       }
-      .skin .double-quote {background-image: /* __DEV_GENERATE__ */ url("../images/generate/one.jpg");width: /* __DEV_GENERATE__ */ 300px;height: /* __DEV_GENERATE__ */ 200px;
+      .skin .double-quote {background-image: /* __DEV_GENERATE__ */ url("../images/generate/one.jpg");width: /* __DEV_GENERATE__ */ 300px;height: /* __DEV_GENERATE__ */ 200px;background-size: /* __DEV_GENERATE__ */ 300px 200px;
       }
     "
 `;
@@ -147,8 +159,9 @@ exports[`test url quotation mark > test url with single quotes 1`] = `
         background: /* __DEV_REPLACE__ */ url("../images/replace/one.jpg") no-repeat;
         width: /* __DEV_REPLACE__ */ 300px;
         height: /* __DEV_REPLACE__ */ 300px;
+        background-size: /* __DEV_REPLACE__ */ 300px 300px;
       }
-      .skin .single-quote {background-image: /* __DEV_GENERATE__ */ url("../images/generate/one.jpg");width: /* __DEV_GENERATE__ */ 300px;height: /* __DEV_GENERATE__ */ 200px;
+      .skin .single-quote {background-image: /* __DEV_GENERATE__ */ url("../images/generate/one.jpg");width: /* __DEV_GENERATE__ */ 300px;height: /* __DEV_GENERATE__ */ 200px;background-size: /* __DEV_GENERATE__ */ 300px 200px;
       }
     "
 `;
@@ -159,8 +172,9 @@ exports[`test url quotation mark > test url without quotes 1`] = `
         background: /* __DEV_REPLACE__ */ url("../images/replace/one.jpg") no-repeat;
         width: /* __DEV_REPLACE__ */ 300px;
         height: /* __DEV_REPLACE__ */ 300px;
+        background-size: /* __DEV_REPLACE__ */ 300px 300px;
       }
-      .skin .non-quotation {background-image: /* __DEV_GENERATE__ */ url("../images/generate/one.jpg");width: /* __DEV_GENERATE__ */ 300px;height: /* __DEV_GENERATE__ */ 200px;
+      .skin .non-quotation {background-image: /* __DEV_GENERATE__ */ url("../images/generate/one.jpg");width: /* __DEV_GENERATE__ */ 300px;height: /* __DEV_GENERATE__ */ 200px;background-size: /* __DEV_GENERATE__ */ 300px 200px;
       }
     "
 `;
