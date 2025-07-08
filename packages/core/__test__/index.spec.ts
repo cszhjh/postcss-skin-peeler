@@ -1,16 +1,15 @@
 import { dirname, relative, resolve } from 'node:path'
-import mockFs from 'mock-fs'
 import postcss from 'postcss'
-import { afterAll, beforeAll, describe, expect, it } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import plugin from '../src/main'
 import type { PluginOptions } from '../src/types'
 
-const FROM = resolve('./style/index.css')
-const IMG_SRC = './images'
-const GENERATE_SKIN_IMG = './generate-skin'
-const REPLACE_SKIN_IMG = './replace-skin'
-const ORIGIN_IMG_ONE = resolve(IMG_SRC, './one.png')
-const ORIGIN_IMG_TWO = resolve(IMG_SRC, './two.png')
+const FROM = resolve('__test__/style/index.css')
+const IMG_SRC = '__test__/images/origin'
+const GENERATE_SKIN_IMG = '__test__/images/generate'
+const REPLACE_SKIN_IMG = '__test__/images/replace'
+const ORIGIN_IMG_ONE = resolve(IMG_SRC, './one.jpg')
+const ORIGIN_IMG_TWO = resolve(IMG_SRC, './two.jpg')
 const ORIGIN_IMG_ONE_RELATIVE = relative(dirname(FROM), ORIGIN_IMG_ONE)
 const ORIGIN_IMG_TWO_RELATIVE = relative(dirname(FROM), ORIGIN_IMG_TWO)
 
@@ -20,11 +19,13 @@ const PLUGIN_OPTIONS: PluginOptions[] = [
     imgSrc: IMG_SRC,
     skinSrc: GENERATE_SKIN_IMG,
     prefixSelector: '.skin',
+    coverSize: true,
   },
   {
     mode: 'replace',
     imgSrc: IMG_SRC,
     skinSrc: REPLACE_SKIN_IMG,
+    coverSize: true,
   },
 ]
 
@@ -32,21 +33,6 @@ async function run(css: string, options: PluginOptions | PluginOptions[] = PLUGI
   const { css: output } = await postcss([plugin(options)]).process(css, { from: FROM })
   return output
 }
-
-beforeAll(() => {
-  mockFs({
-    [ORIGIN_IMG_ONE]: Buffer.from([8, 6, 7, 5, 3, 0, 9]),
-    [ORIGIN_IMG_TWO]: Buffer.from([9, 6, 7, 5, 3, 0, 9]),
-    [resolve(GENERATE_SKIN_IMG, './one.png')]: Buffer.from([9, 7, 8, 6, 4, 1, 10]),
-    [resolve(GENERATE_SKIN_IMG, './two.png')]: Buffer.from([10, 7, 8, 6, 4, 1, 10]),
-    [resolve(REPLACE_SKIN_IMG, './one.png')]: Buffer.from([9, 7, 8, 6, 4, 1, 10]),
-    [resolve(REPLACE_SKIN_IMG, './two.png')]: Buffer.from([10, 7, 8, 6, 4, 1, 10]),
-  })
-})
-
-afterAll(() => {
-  mockFs.restore()
-})
 
 describe('test url quotation mark', () => {
   it('test url without quotes', async () => {
@@ -191,6 +177,46 @@ describe('test rule in @media', () => {
   `
   it('test rule in @media', async () => {
     const output = await run(input)
+    expect(output).toMatchSnapshot()
+  })
+})
+
+describe('test cover size', () => {
+  it('test default unit cover size', async () => {
+    const input = `
+      .wrapper {
+        background: url(${ORIGIN_IMG_ONE_RELATIVE}) no-repeat;
+      }
+    `
+    const output = await run(input)
+    expect(output).toMatchSnapshot()
+  })
+
+  it('test custom unit cover size', async () => {
+    const input = `
+      .wrapper {
+        background: url(${ORIGIN_IMG_ONE_RELATIVE}) no-repeat;
+      }
+    `
+    const coverSize = ({ width, height }: { width: number; height: number }) => {
+      return { width: `${width / 100}rem`, height: `${height / 100}rem` }
+    }
+
+    const output = await run(input, [
+      {
+        mode: 'generate',
+        imgSrc: IMG_SRC,
+        skinSrc: GENERATE_SKIN_IMG,
+        prefixSelector: '.skin',
+        coverSize,
+      },
+      {
+        mode: 'replace',
+        imgSrc: IMG_SRC,
+        skinSrc: REPLACE_SKIN_IMG,
+        coverSize,
+      },
+    ])
     expect(output).toMatchSnapshot()
   })
 })

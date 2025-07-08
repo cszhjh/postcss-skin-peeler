@@ -1,12 +1,17 @@
 import { resolve } from 'path'
-import { Declaration, type ChildNode, type Rule } from 'postcss'
-import { TransformOptions, type PluginOptions } from './types'
+import { imageSizeFromFile } from 'image-size/fromFile'
+import { Declaration, DeclarationProps, type ChildNode, type Rule } from 'postcss'
+import { CoverSize, CoverSizeFunc, NormalizeOptions, type PluginOptions } from './types'
 
 const isProduction = process.env.NODE_ENV === 'production'
 const htmlBodyRegex = /^((?:body|html)(?:[.#[][\w-]+)*(?:\s+body(?:[.#[][\w-]+)*)?)(.*)$/
 const backgroundImageRegex = /url\((['"]?)(?!https?:\/\/)([^'")]+)\1\)/
 
 export const declarationKeys = ['background', 'background-image']
+
+export function isBoolean(val: unknown): val is boolean {
+  return typeof val === 'boolean'
+}
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
 export function isFunction(val: unknown): val is Function {
@@ -35,7 +40,7 @@ export function slash(path: string) {
   return path.replace(/\\/g, '/')
 }
 
-export function injectDevComment(value: string, mode: TransformOptions['mode'] | 'generate_rewrite'): string {
+export function injectDevComment(value: string, mode: NormalizeOptions['mode'] | 'generate_rewrite'): string {
   if (isProduction) {
     return value
   }
@@ -53,29 +58,35 @@ export function replaceBackgroundUrlValue(source: string, path: string): string 
   return source.replace(backgroundImageRegex, `url("${path}")`)
 }
 
-export function generateRule(rule: Rule, selector: string, path: string) {
-  const skinDecl = new Declaration({
-    prop: 'background-image',
-    value: injectDevComment(`url("${path}")`, 'generate'),
-  })
-
+export function generateRule(rule: Rule, selector: string, declarations: DeclarationProps[]) {
   const skinRule = rule.cloneAfter({
     selector,
-    nodes: [skinDecl],
+    nodes: declarations.map((decl) => new Declaration(decl)),
   })
 
   return skinRule
 }
 
-export function normalizeOptions(options: PluginOptions | PluginOptions[] | undefined): TransformOptions[] {
+export function getImageSize(filePath: string) {
+  return imageSizeFromFile(filePath)
+}
+
+export function normalizeOptions(options: PluginOptions | PluginOptions[] | undefined): NormalizeOptions[] {
   const _opts: PluginOptions[] | undefined = options && isArray(options) ? options : [options!]
 
   return (
     _opts?.map(
-      ({ mode = 'generate', imgSrc = './src/images', skinSrc = './src/skin', prefixSelector = '.skin-peeler' }) => ({
+      ({
+        mode = 'generate',
+        imgSrc = './src/images',
+        skinSrc = './src/skin',
+        coverSize = false,
+        prefixSelector = '.skin-peeler',
+      }) => ({
         mode,
         imgSrc: resolve(imgSrc),
         skinSrc: resolve(skinSrc),
+        coverSize: normalizeCoverSize(coverSize),
         prefixSelector: normalizePrefixSelector(prefixSelector),
       }),
     ) ?? []
@@ -84,6 +95,22 @@ export function normalizeOptions(options: PluginOptions | PluginOptions[] | unde
 
 export function normalizePath(path: string) {
   return slash(path)
+}
+
+export function normalizeCoverSize(coverSize: CoverSize) {
+  const _coverSize = isFunction(coverSize) ? coverSize : () => coverSize
+
+  return (info: Parameters<CoverSizeFunc>[0]) => {
+    const { width, height } = info
+    const value = _coverSize(info)
+
+    return isBoolean(value)
+      ? value && {
+          width: `${width}px`,
+          height: `${height}px`,
+        }
+      : value
+  }
 }
 
 export function normalizePrefixSelector(prefixSelector: PluginOptions['prefixSelector']) {

@@ -5,6 +5,7 @@ import { declarationKeys, normalizeOptions } from './utils'
 
 export const creator: PluginCreator<PluginOptions | PluginOptions[]> = (options): Plugin => {
   const ruleCache: Record<string, Map<string, Rule> | undefined> = {}
+  const imageSizeCache: Map<string, { width: number; height: number }> = new Map()
 
   return {
     postcssPlugin: 'postcss-skin-peeler',
@@ -12,8 +13,14 @@ export const creator: PluginCreator<PluginOptions | PluginOptions[]> = (options)
       ...Object.fromEntries(
         declarationKeys.map((prop) => [
           prop,
-          (decl) => {
-            transform(decl, normalizeOptions(options), ruleCache)
+          async (decl) => {
+            await transform({
+              decl,
+              options: normalizeOptions(options),
+              ruleCache,
+              imageSizeCache,
+              rawOptions: options,
+            })
           },
         ]),
       ),

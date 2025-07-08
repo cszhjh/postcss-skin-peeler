@@ -3,13 +3,17 @@
 exports[`test background stack > test background is stacked in the multiple rule 1`] = `
 "
       .rule-multiple-stacked {
-        background: /* __DEV_REPLACE__ */ url("../replace-skin/one.png") no-repeat;
+        background: /* __DEV_REPLACE__ */ url("../images/replace/one.jpg") no-repeat;
+        width: /* __DEV_REPLACE__ */ 300px;
+        height: /* __DEV_REPLACE__ */ 300px;
       }
-      .skin .rule-multiple-stacked {background-image: /* __DEV_GENERATE_REWRITE__ */ /* __DEV_GENERATE__ */ url("../generate-skin/two.png");
+      .skin .rule-multiple-stacked {background-image: /* __DEV_GENERATE_REWRITE__ */ /* __DEV_GENERATE__ */ url("../images/generate/two.jpg");width: /* __DEV_GENERATE_REWRITE__ */ 280px;height: /* __DEV_GENERATE_REWRITE__ */ 350px;
       }
 
       .rule-multiple-stacked {
-        background: /* __DEV_REPLACE__ */ url("../replace-skin/two.png") no-repeat;
+        background: /* __DEV_REPLACE__ */ url("../images/replace/two.jpg") no-repeat;
+        width: /* __DEV_REPLACE__ */ 350px;
+        height: /* __DEV_REPLACE__ */ 350px;
       }
     "
 `;
@@ -17,10 +21,36 @@ exports[`test background stack > test background is stacked in the multiple rule
 exports[`test background stack > test background is stacked in the single rule 1`] = `
 "
       .rule-single-stacked {
-        background: /* __DEV_REPLACE__ */ url("../replace-skin/one.png") no-repeat;
-        background-image: /* __DEV_REPLACE__ */ url("../replace-skin/one.png") no-repeat;
+        background: /* __DEV_REPLACE__ */ url("../images/replace/one.jpg") no-repeat;
+        background-image: /* __DEV_REPLACE__ */ url("../images/replace/one.jpg") no-repeat;
+        width: /* __DEV_REPLACE__ */ 300px;
+        height: /* __DEV_REPLACE__ */ 300px;
       }
-      .skin .rule-single-stacked {background-image: /* __DEV_GENERATE__ */ url("../generate-skin/one.png");
+      .skin .rule-single-stacked {background-image: /* __DEV_GENERATE__ */ url("../images/generate/one.jpg");width: /* __DEV_GENERATE__ */ 300px;height: /* __DEV_GENERATE__ */ 200px;
+      }
+    "
+`;
+
+exports[`test cover size > test custom unit cover size 1`] = `
+"
+      .wrapper {
+        background: /* __DEV_REPLACE__ */ url("../images/replace/one.jpg") no-repeat;
+        width: /* __DEV_REPLACE__ */ 3rem;
+        height: /* __DEV_REPLACE__ */ 3rem;
+      }
+      .skin .wrapper {background-image: /* __DEV_GENERATE__ */ url("../images/generate/one.jpg");width: /* __DEV_GENERATE__ */ 3rem;height: /* __DEV_GENERATE__ */ 2rem;
+      }
+    "
+`;
+
+exports[`test cover size > test default unit cover size 1`] = `
+"
+      .wrapper {
+        background: /* __DEV_REPLACE__ */ url("../images/replace/one.jpg") no-repeat;
+        width: /* __DEV_REPLACE__ */ 300px;
+        height: /* __DEV_REPLACE__ */ 300px;
+      }
+      .skin .wrapper {background-image: /* __DEV_GENERATE__ */ url("../images/generate/one.jpg");width: /* __DEV_GENERATE__ */ 300px;height: /* __DEV_GENERATE__ */ 200px;
       }
     "
 `;
@@ -28,9 +58,11 @@ exports[`test background stack > test background is stacked in the single rule 1
 exports[`test html and body combination > test body as prefix selector 1`] = `
 "
       body .body-prefix {
-        background: /* __DEV_REPLACE__ */ url("../replace-skin/one.png") no-repeat;
+        background: /* __DEV_REPLACE__ */ url("../images/replace/one.jpg") no-repeat;
+        width: /* __DEV_REPLACE__ */ 300px;
+        height: /* __DEV_REPLACE__ */ 300px;
       }
-      body .skin .body-prefix {background-image: /* __DEV_GENERATE__ */ url("../generate-skin/one.png");
+      body .skin .body-prefix {background-image: /* __DEV_GENERATE__ */ url("../images/generate/one.jpg");width: /* __DEV_GENERATE__ */ 300px;height: /* __DEV_GENERATE__ */ 200px;
       }
     "
 `;
@@ -38,9 +70,11 @@ exports[`test html and body combination > test body as prefix selector 1`] = `
 exports[`test html and body combination > test body follow selector as prefix selector 1`] = `
 "
       body.follow .body-prefix {
-        background: /* __DEV_REPLACE__ */ url("../replace-skin/one.png") no-repeat;
+        background: /* __DEV_REPLACE__ */ url("../images/replace/one.jpg") no-repeat;
+        width: /* __DEV_REPLACE__ */ 300px;
+        height: /* __DEV_REPLACE__ */ 300px;
       }
-      body.follow .skin .body-prefix {background-image: /* __DEV_GENERATE__ */ url("../generate-skin/one.png");
+      body.follow .skin .body-prefix {background-image: /* __DEV_GENERATE__ */ url("../images/generate/one.jpg");width: /* __DEV_GENERATE__ */ 300px;height: /* __DEV_GENERATE__ */ 200px;
       }
     "
 `;
@@ -48,9 +82,11 @@ exports[`test html and body combination > test body follow selector as prefix se
 exports[`test html and body combination > test html as prefix selector 1`] = `
 "
       html .html-prefix {
-        background: /* __DEV_REPLACE__ */ url("../replace-skin/one.png") no-repeat;
+        background: /* __DEV_REPLACE__ */ url("../images/replace/one.jpg") no-repeat;
+        width: /* __DEV_REPLACE__ */ 300px;
+        height: /* __DEV_REPLACE__ */ 300px;
       }
-      html .skin .html-prefix {background-image: /* __DEV_GENERATE__ */ url("../generate-skin/one.png");
+      html .skin .html-prefix {background-image: /* __DEV_GENERATE__ */ url("../images/generate/one.jpg");width: /* __DEV_GENERATE__ */ 300px;height: /* __DEV_GENERATE__ */ 200px;
       }
     "
 `;
@@ -58,9 +94,11 @@ exports[`test html and body combination > test html as prefix selector 1`] = `
 exports[`test html and body combination > test html body as prefix selector 1`] = `
 "
       html body .html-body-prefix {
-        background: /* __DEV_REPLACE__ */ url("../replace-skin/one.png") no-repeat;
+        background: /* __DEV_REPLACE__ */ url("../images/replace/one.jpg") no-repeat;
+        width: /* __DEV_REPLACE__ */ 300px;
+        height: /* __DEV_REPLACE__ */ 300px;
       }
-      html body .skin .html-body-prefix {background-image: /* __DEV_GENERATE__ */ url("../generate-skin/one.png");
+      html body .skin .html-body-prefix {background-image: /* __DEV_GENERATE__ */ url("../images/generate/one.jpg");width: /* __DEV_GENERATE__ */ 300px;height: /* __DEV_GENERATE__ */ 200px;
       }
     "
 `;
@@ -68,9 +106,11 @@ exports[`test html and body combination > test html body as prefix selector 1`] 
 exports[`test html and body combination > test html follow selector as prefix selector 1`] = `
 "
       html.follow .html-prefix {
-        background: /* __DEV_REPLACE__ */ url("../replace-skin/one.png") no-repeat;
+        background: /* __DEV_REPLACE__ */ url("../images/replace/one.jpg") no-repeat;
+        width: /* __DEV_REPLACE__ */ 300px;
+        height: /* __DEV_REPLACE__ */ 300px;
       }
-      html.follow .skin .html-prefix {background-image: /* __DEV_GENERATE__ */ url("../generate-skin/one.png");
+      html.follow .skin .html-prefix {background-image: /* __DEV_GENERATE__ */ url("../images/generate/one.jpg");width: /* __DEV_GENERATE__ */ 300px;height: /* __DEV_GENERATE__ */ 200px;
       }
     "
 `;
@@ -79,9 +119,11 @@ exports[`test rule in @media > test rule in @media 1`] = `
 "
     @media screen and (min-width: 1024px) {
       .media {
-        background: /* __DEV_REPLACE__ */ url("../replace-skin/one.png") no-repeat;
+        background: /* __DEV_REPLACE__ */ url("../images/replace/one.jpg") no-repeat;
+        width: /* __DEV_REPLACE__ */ 300px;
+        height: /* __DEV_REPLACE__ */ 300px;
       }
-      .skin .media {background-image: /* __DEV_GENERATE__ */ url("../generate-skin/one.png");
+      .skin .media {background-image: /* __DEV_GENERATE__ */ url("../images/generate/one.jpg");width: /* __DEV_GENERATE__ */ 300px;height: /* __DEV_GENERATE__ */ 200px;
       }
     }
   "
@@ -90,9 +132,11 @@ exports[`test rule in @media > test rule in @media 1`] = `
 exports[`test url quotation mark > test url with double quotes 1`] = `
 "
       .double-quote {
-        background: /* __DEV_REPLACE__ */ url("../replace-skin/one.png") no-repeat;
+        background: /* __DEV_REPLACE__ */ url("../images/replace/one.jpg") no-repeat;
+        width: /* __DEV_REPLACE__ */ 300px;
+        height: /* __DEV_REPLACE__ */ 300px;
       }
-      .skin .double-quote {background-image: /* __DEV_GENERATE__ */ url("../generate-skin/one.png");
+      .skin .double-quote {background-image: /* __DEV_GENERATE__ */ url("../images/generate/one.jpg");width: /* __DEV_GENERATE__ */ 300px;height: /* __DEV_GENERATE__ */ 200px;
       }
     "
 `;
@@ -100,9 +144,11 @@ exports[`test url quotation mark > test url with double quotes 1`] = `
 exports[`test url quotation mark > test url with single quotes 1`] = `
 "
       .single-quote {
-        background: /* __DEV_REPLACE__ */ url("../replace-skin/one.png") no-repeat;
+        background: /* __DEV_REPLACE__ */ url("../images/replace/one.jpg") no-repeat;
+        width: /* __DEV_REPLACE__ */ 300px;
+        height: /* __DEV_REPLACE__ */ 300px;
       }
-      .skin .single-quote {background-image: /* __DEV_GENERATE__ */ url("../generate-skin/one.png");
+      .skin .single-quote {background-image: /* __DEV_GENERATE__ */ url("../images/generate/one.jpg");width: /* __DEV_GENERATE__ */ 300px;height: /* __DEV_GENERATE__ */ 200px;
       }
     "
 `;
@@ -110,9 +156,11 @@ exports[`test url quotation mark > test url with single quotes 1`] = `
 exports[`test url quotation mark > test url without quotes 1`] = `
 "
       .non-quotation {
-        background: /* __DEV_REPLACE__ */ url("../replace-skin/one.png") no-repeat;
+        background: /* __DEV_REPLACE__ */ url("../images/replace/one.jpg") no-repeat;
+        width: /* __DEV_REPLACE__ */ 300px;
+        height: /* __DEV_REPLACE__ */ 300px;
       }
-      .skin .non-quotation {background-image: /* __DEV_GENERATE__ */ url("../generate-skin/one.png");
+      .skin .non-quotation {background-image: /* __DEV_GENERATE__ */ url("../images/generate/one.jpg");width: /* __DEV_GENERATE__ */ 300px;height: /* __DEV_GENERATE__ */ 200px;
       }
     "
 `;
