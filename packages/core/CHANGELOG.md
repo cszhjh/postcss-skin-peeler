@@ -1,3 +1,14 @@
+# [0.2.0](https://github.com/cszhjh/postcss-skin-peeler/compare/v0.1.6...v0.2.0) (2025-07-13)
+
+
+### Features
+
+* **core:** support multiple skin ([#12](https://github.com/cszhjh/postcss-skin-peeler/issues/12)) ([b77d454](https://github.com/cszhjh/postcss-skin-peeler/commit/b77d454818ffc08881cd4ff48cf25fae4c965ee9))
+* support cover background-size ([d5d55e5](https://github.com/cszhjh/postcss-skin-peeler/commit/d5d55e5b18644899b96cbfa98190db01358ff386))
+* support cover width and height ([04a3fc7](https://github.com/cszhjh/postcss-skin-peeler/commit/04a3fc731293193c3386a2abd6de3be7aac0a54d))
+
+
+
 ## [0.1.6](https://github.com/cszhjh/postcss-skin-peeler/compare/v0.1.5...v0.1.6) (2025-06-05)
 
 
