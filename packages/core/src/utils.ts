@@ -30,14 +30,8 @@ export function isDeclaration(node: ChildNode): node is Declaration {
   return node.type === 'decl'
 }
 
-export function slash(path: string) {
-  const isExtendedLengthPath = path.startsWith('\\\\?\\')
-
-  if (isExtendedLengthPath) {
-    return path
-  }
-
-  return path.replace(/\\/g, '/')
+export function slash(path: string): string {
+  return path.replaceAll('\\', '/')
 }
 
 export function injectDevComment(value: string, mode: NormalizeOptions['mode'] | 'generate_rewrite'): string {

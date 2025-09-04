@@ -9,6 +9,7 @@ import {
   injectDevComment,
   isArray,
   isRule,
+  normalizePath,
   replaceBackgroundUrlValue,
 } from './utils'
 
@@ -21,9 +22,9 @@ export async function transform({ decl, options, ruleCache, imageSizeCache, rawO
   }
 
   const { source, selector } = rule
-  const styleFilePath = source.input.file!
+  const styleFilePath = normalizePath(source.input.file!)
   const styleDirname = dirname(styleFilePath)
-  const originalFilePath = resolve(styleDirname, originalUrl)
+  const originalFilePath = normalizePath(resolve(styleDirname, originalUrl))
 
   for (let i = 0; i < options.length; i++) {
     const { mode, imgSrc, skinSrc, coverSize, prefixSelector } = options[i]
