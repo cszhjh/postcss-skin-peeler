@@ -29,11 +29,13 @@ export async function transform({ decl, options, ruleCache, imageSizeCache, rawO
   for (let i = 0; i < options.length; i++) {
     const { mode, imgSrc, skinSrc, coverSize, prefixSelector } = options[i]
     const isReplace = mode === 'replace'
-    const suffixPath = relative(imgSrc, originalFilePath)
-    const skinFilePath = join(skinSrc, suffixPath)
-    const skinRelativeFilePath = relative(styleDirname, skinFilePath)
+    const normalizeImgSrc = normalizePath(imgSrc)
+    const normalizeSkinSrc = normalizePath(skinSrc)
+    const suffixPath = relative(normalizeImgSrc, originalFilePath)
+    const skinFilePath = normalizePath(join(normalizeSkinSrc, suffixPath))
+    const skinRelativeFilePath = normalizePath(relative(styleDirname, skinFilePath))
 
-    if (!originalFilePath.startsWith(imgSrc) || !existsSync(skinFilePath)) {
+    if (!originalFilePath.startsWith(normalizeImgSrc) || !existsSync(skinFilePath)) {
       continue
     }
 
