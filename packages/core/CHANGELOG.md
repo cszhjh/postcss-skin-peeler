@@ -1,3 +1,13 @@
+## [0.2.1](https://github.com/cszhjh/postcss-skin-peeler/compare/v0.2.0...v0.2.1) (2025-09-08)
+
+
+### Bug Fixes
+
+* adapt windows ([161154d](https://github.com/cszhjh/postcss-skin-peeler/commit/161154ddce2e370991bc7e57e99183ab46873246))
+* correctly slash for windows ([ca43c67](https://github.com/cszhjh/postcss-skin-peeler/commit/ca43c67c6d2e2d89acca255b0764b2a770f71e7b))
+
+
+
 # [0.2.0](https://github.com/cszhjh/postcss-skin-peeler/compare/v0.1.6...v0.2.0) (2025-07-13)
 
 
