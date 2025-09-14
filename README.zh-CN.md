@@ -31,7 +31,7 @@ module.exports = {
       "imgSrc": path.resolve(__dirname, "./src/images"),
       "skinSrc": path.resolve(__dirname, "./src/skin"),
       "prefixSelector": ".skin-peeler",
-      "coverSize": ({ width, height }) => ({ width: `${width / 100}rem`, height: `${height / 100}rem` })
+      "coverSize": ({ width, height }) => ({ width: width / 100, height: height / 100 })
     }
   }
 }

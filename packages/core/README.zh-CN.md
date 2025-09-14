@@ -7,14 +7,14 @@
 ## 安装
 
 ```bash
-# yarn
-yarn add postcss-skin-peeler -D
-
 # npm
 npm install postcss-skin-peeler -D
 
 # pnpm
 pnpm add postcss-skin-peeler -D
+
+# yarn
+yarn add postcss-skin-peeler -D
 ```
 
 ## 使用
@@ -27,9 +27,11 @@ const path = require('path')
 module.exports = {
   "plugins": {
     "postcss-skin-peeler": {
+      "mode": "generate",
       "imgSrc": path.resolve(__dirname, "./src/images"),
       "skinSrc": path.resolve(__dirname, "./src/skin"),
-      "prefixSelector": ".skin-peeler"
+      "prefixSelector": ".skin-peeler",
+      "coverSize": ({ width, height }) => ({ width: width / 100, height: height / 100 })
     }
   }
 }
@@ -61,12 +63,13 @@ module.exports = {
 
 ## 选项
 
-| 选项           | 类型                                       | 默认值                               | 描述                                                                      |
-|----------------|--------------------------------------------|--------------------------------------|-------------------------------------------------------------------------|
-| imgSrc         | `string`                                   | `resolve(__dirname, './src/images')` | 图片目录的路径。                                                           |
-| skinSrc        | `string`                                   | `resolve(__dirname, './src/skin')`   | 皮肤图片所在的目录。                                                       |
-| prefixSelector | `string \| ((selector: string) => string)` | `.skin-peeler`                       | 生成的CSS规则的前缀。                                                      |
-| mode           | `string`                                   | `generate`                           | 控制插件在处理background-image时的行为模式，可选值为 `generate` `replace`。 |
+| 选项           | 类型                                                                                                               | 默认值                               | 描述                                                                                                              |
+|----------------|--------------------------------------------------------------------------------------------------------------------|--------------------------------------|-----------------------------------------------------------------------------------------------------------------|
+| imgSrc         | `string`                                                                                                           | `resolve(__dirname, './src/images')` | 图片目录的路径。                                                                                                   |
+| skinSrc        | `string`                                                                                                           | `resolve(__dirname, './src/skin')`   | 皮肤图片所在的目录。                                                                                               |
+| prefixSelector | `string \| ((selector: string) => string)`                                                                         | `.skin-peeler`                       | 生成的CSS规则的前缀。                                                                                              |
+| mode           | `string`                                                                                                           | `generate`                           | 控制插件在处理background-image时的行为模式，可选值为 `generate` `replace`。                                         |
+| coverSize      | `boolean \| ({ filePath: string, width: number, height: number }) => boolean \| { width: number, height: number }` | `false`                              | 覆盖 `width \ height \ background-size` 的尺寸 - 在将 `px` 转换为 `rem` 时很有用。返回 `false` 将禁用该图像的转换。 |
 
 ## 示例
 
