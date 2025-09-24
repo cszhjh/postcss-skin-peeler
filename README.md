@@ -31,7 +31,7 @@ module.exports = {
       "imgSrc": path.resolve(__dirname, "./src/images"),
       "skinSrc": path.resolve(__dirname, "./src/skin"),
       "prefixSelector": ".skin-peeler",
-      "coverSize": ({ width, height }) => ({ width: width / 100, height: height / 100 })
+      "coverSize": ({ width, height }) => ({ width: `${width / 100}rem`, height: `${height / 100}rem` })
     }
   }
 }
@@ -69,7 +69,7 @@ module.exports = {
 | skinDir        | `string`                                                                                                           | `resolve(__dirname, './src/skin')`   | The directory where skin images are located.                                                                                                    |
 | prefixSelector | `string \| ((selector: string) => string)`                                                                         | `.skin-peeler`                       | The prefix to be added to the generated CSS rules.                                                                                              |
 | mode           | `string`                                                                                                           | `generate`                           | Control the behavior pattern of plugins when processing background images, Can be set to `generate` `replace`.                                  |
-| coverSize      | `boolean \| ({ filePath: string, width: number, height: number }) => boolean \| { width: number, height: number }` | `false`                              | Cover `width \ height \ and background-size` size — useful when converting `px` to `rem`. Returning `false` disables conversion for that image. |
+| coverSize      | `boolean \| ({ filePath: string, width: number, height: number }) => boolean \| { width: string, height: string }` | `false`                              | Cover `width \ height \ and background-size` size — useful when converting `px` to `rem`. Returning `false` disables conversion for that image. |
 
 ## Example
 
